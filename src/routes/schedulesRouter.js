@@ -3,6 +3,9 @@ const schedulesHandler = require('../handlers/schedulesHandler');
 
 const router = express.Router();
 
-router.get('/', schedulesHandler.getAllUsers);
+router
+  .route('/')
+  .get(schedulesHandler.getAllSchedules)
+  .post(schedulesHandler.createSchedule);
 
 module.exports = router;
