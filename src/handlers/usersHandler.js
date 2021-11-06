@@ -2,10 +2,37 @@ const { users } = require('../data');
 const { schedules } = require('../data');
 
 exports.checkID = (req, res, next) => {
-  if (req.params.id * 1 > users.length) {
+  if (req.params.id * 1 >= users.length) {
     return res.status(404).json({
       status: 'failed',
-      message: 'Invalid id',
+      message: 'Invalid ID. User does not exist',
+    });
+  }
+  next();
+};
+
+exports.checkBody = (req, res, next) => {
+  const {
+    firstname,
+    lastname,
+    email,
+    password,
+  } = req.body;
+
+  let valid;
+
+  if (!firstname || !lastname || !email || !password) {
+    valid = false;
+  } if (firstname.trim() === lastname.trim()) {
+    valid = false;
+  } else {
+    valid = true;
+  }
+
+  if (!valid) {
+    return res.status(400).json({
+      status: 'fail',
+      message: 'Missing firstmane, lastname, email or password property',
     });
   }
   next();
@@ -42,5 +69,14 @@ exports.getScheduleByUser = (req, res) => {
           ? 'No schedules for this user in database'
           : schedule,
     },
+  });
+};
+
+exports.createUser = (req, res) => {
+  const newUser = { ...req.body };
+  users.push(newUser);
+  res.status(201).json({
+    status: 'success',
+    data: users[users.length - 1],
   });
 };

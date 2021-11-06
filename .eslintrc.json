@@ -12,6 +12,7 @@
         "ecmaVersion": 12
     },
     "rules": {
-        "consistent-return": "off"
+        "consistent-return": "off",
+        "operator-linebreak": "off"
     }
 }
