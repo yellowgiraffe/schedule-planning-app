@@ -1,0 +1,50 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Schedules Website
+    link(rel="stylesheet", href="/css/main.css")
+  body
+    header.main-header
+      nav.main-header__nav
+        ul.main-header__list
+          li.main-header__item
+            a(href="/") Home
+          li.main-header__item
+            a(href="/users") Add user
+          li.main-header__item
+            a(href="/schedules") Add schedule
+          li.main-header__item
+            a(href="/users/:id") Search user by ID
+    main
+      section.intro
+        .container
+          h2.block-title Welcome to our schedule website!
+          a.show-users-btn(href="/users") Show Users
+          a.show-schedules-btn(href="/users") Show Schedules
+      section.add-user
+        .container
+          h2.block-title Add new user
+          form.form(action="/users" method="POST")
+            label(for="user-firstname") First name
+            input(type="text" name="user-firstname" id="user-firstname" required)
+            label(for="user-lastname") Last name
+            input(type="text" name="user-lastname" id="user-lastname" required)
+            label(for="user-email") Email
+            input(type="email" name="user-email" id="user-email" required)
+            label(for="user-password") Password
+            input(type="password" name="user-password" id="user-password" required)
+      section.add-schedule
+        .container
+          h2.block-title Add schedule
+          form.form(action="/schedules" method="POST")
+            label(for="user-firstname") First name
+            input(type="text" name="user-firstname" id="user-firstname" required)
+            label(for="user-lastname") Last name
+            input(type="text" name="user-lastname" id="user-lastname" required)
+            label(for="user-email") Email
+            input(type="email" name="user-email" id="user-email" required)
+            label(for="user-password") Password
+            input(type="password" name="user-password" id="user-password" required)

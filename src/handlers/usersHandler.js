@@ -39,13 +39,7 @@ exports.checkBody = (req, res, next) => {
 };
 
 exports.getAllUsers = (req, res) => {
-  res.status(200).json({
-    status: 'success',
-    results: users.length,
-    data: {
-      users,
-    },
-  });
+  res.status(200).render('users', { allUsers: users });
 };
 
 exports.getUser = (req, res) => {
