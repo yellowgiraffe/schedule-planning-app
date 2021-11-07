@@ -39,7 +39,7 @@ exports.checkBody = (req, res, next) => {
 };
 
 exports.getAllUsers = (req, res) => {
-  res.status(200).render('users', { allUsers: users });
+  res.status(200).render('users', { pageTitle: 'Users', allUsers: users, path: '/users' });
 };
 
 exports.getUser = (req, res) => {

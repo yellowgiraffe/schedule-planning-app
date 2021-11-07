@@ -14,15 +14,17 @@ app.set('views', 'src/views');
 app.use(express.json());
 app.use(express.static(path.join(rootDir, 'public')));
 
+const { users } = require('./data');
+
 app.get('/', (req, res) => {
-  res.status(200).render('home');
+  res.status(200).render('home', { pageTitle: 'Schedules website', allUsers: users, path: '/' });
 });
 
 app.use('/users', usersRouter);
 app.use('/schedules', schedulesRouter);
 
 app.use((req, res) => {
-  res.status(404).sendFile(path.join(rootDir, 'views', '404.html'));
+  res.status(404).render('404', { pageTitle: 'Page not found' });
 });
 
 module.exports = app;

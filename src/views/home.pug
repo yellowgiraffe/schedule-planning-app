@@ -1,23 +1,6 @@
-doctype html
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(http-equiv="X-UA-Compatible", content="IE=edge")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Schedules Website
-    link(rel="stylesheet", href="/css/main.css")
-  body
-    header.main-header
-      nav.main-header__nav
-        ul.main-header__list
-          li.main-header__item
-            a(href="/") Home
-          li.main-header__item
-            a(href="/users") Add user
-          li.main-header__item
-            a(href="/schedules") Add schedule
-          li.main-header__item
-            a(href="/users/:id") Search user by ID
+extend layouts/main-layout.pug
+
+block content
     main
       section.intro
         .container
@@ -27,24 +10,22 @@ html(lang="en")
       section.add-user
         .container
           h2.block-title Add new user
-          form.form(action="/users" method="POST")
+          form.users-form(action="/users" method="POST")
             label(for="user-firstname") First name
-            input(type="text" name="user-firstname" id="user-firstname" required)
+            input#user-firstname(type="text" name="user-firstname" required)
             label(for="user-lastname") Last name
-            input(type="text" name="user-lastname" id="user-lastname" required)
+            input#user-lastname(type="text" name="user-lastname" required)
             label(for="user-email") Email
-            input(type="email" name="user-email" id="user-email" required)
+            input#user-email(type="email" name="user-email" required)
             label(for="user-password") Password
-            input(type="password" name="user-password" id="user-password" required)
+            input#user-password(type="password" name="user-password" required)
+            input(type="submit")
       section.add-schedule
         .container
           h2.block-title Add schedule
-          form.form(action="/schedules" method="POST")
-            label(for="user-firstname") First name
-            input(type="text" name="user-firstname" id="user-firstname" required)
-            label(for="user-lastname") Last name
-            input(type="text" name="user-lastname" id="user-lastname" required)
-            label(for="user-email") Email
-            input(type="email" name="user-email" id="user-email" required)
-            label(for="user-password") Password
-            input(type="password" name="user-password" id="user-password" required)
+          form.schedules-form(action="/schedules" method="POST")
+            label(for="user-id") 
+            select#user-id(name="user-id") 
+              each user, index in allUsers
+                option(value=index) #{user.firstname} #{user.lastname}
+            input(type="submit")
