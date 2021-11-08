@@ -45,7 +45,16 @@ exports.getAllUsers = (req, res) => {
   const users = User.getAll();
   res
     .status(200)
-    .render('users', { pageTitle: 'Users', allUsers: users, path: '/users' });
+    .render('users', {
+      pageTitle: 'Users',
+      allUsers: users,
+      date: new Date().toLocaleDateString('en', {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+      }),
+      path: '/users',
+    });
 };
 
 exports.getUser = (req, res) => {
@@ -92,6 +101,11 @@ exports.getForm = (req, res) => {
   const users = User.getAll();
   res.status(200).render('new-user', {
     pageTitle: 'Add New User',
+    date: new Date().toLocaleDateString('en', {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+    }),
     allUsers: users,
     path: '/users/new',
   });

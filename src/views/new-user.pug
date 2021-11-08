@@ -1,17 +1,20 @@
-extend layouts/main-layout.pug
+extend layouts/main-layout.pug 
+
+block styles
+  link(rel="stylesheet", href="/css/form.css")
 
 block content
-  .container
-    section.add-user
+  main.main
+    section.section.add-user
       h2.block-title Add new user
-      form.users-form(action="/users" method="POST")
-        label(for="user-firstname") First name
-        input#user-firstname(type="text" name="user-firstname" required)
-        label(for="user-lastname") Last name
-        input#user-lastname(type="text" name="user-lastname" required)
-        label(for="user-email") Email
-        input#user-email(type="email" name="user-email" required)
-        label(for="user-password") Password
-        input#user-password(type="password" name="user-password" required)
-        input(type="submit")
-        
+      form.users-form.form(action="/users" method="POST")
+        label.label(for="firstname") First name
+        input.input#user-firstname(type="text" name="firstname" required)
+        label.label(for="lastname") Last name
+        input.input#user-lastname(type="text" name="lastname" required)
+        label.label(for="email") Email
+        input.input#user-email(type="email" name="email" required)
+        label.label(for="password") Password
+        input.input#user-password(type="password" name="password" required)
+        input.input(type="submit")
+          

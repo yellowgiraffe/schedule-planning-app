@@ -1,0 +1,34 @@
+.add-user,
+.add-schedule {
+  padding: 25px;
+}
+
+.block-title {
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.input {
+  display: block;
+  width: 50%;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  padding: 10px 15px;
+}
+
+.input[type="submit"] {
+  background-color: #18a7aa;
+  color: #fff;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.input[type="submit"]:hover {
+  background-color: #2EBCA7;
+}

@@ -54,6 +54,29 @@ body {
   margin: 0 auto;
 }
 
+.wrapper {
+  display: flex;
+  column-gap: 20px;
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 20px;
+  flex-grow: 1;
+}
+
+.sidebar {
+  width: 30%;
+}
+
+.section {
+  width: 100%;
+  border-radius: 6px;
+  background-color: #3a4264;
+  margin-bottom: 20px;
+}
+
 .header__nav-list {
   display: flex;
 }
@@ -89,4 +112,64 @@ body {
 
 .active-nav:first-child:after{
   border-bottom-left-radius: 6px;
+}
+
+.intro__title {
+  padding: 20px 25px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 400;
+  background-color: #18a7aa;
+}
+
+.intro__btn {
+  display: block;
+  position: relative;
+  padding: 15px 69px;
+  color: #fff;
+}
+
+.intro__btn:hover {
+  background-color: #51597b;
+}
+
+.intro__btn:hover:last-child {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.user-icon::before {
+  content: url("../img/user-icon.svg");
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  left: 25px;
+}
+
+.calendar-icon::before {
+  content: url("../img/calendar-icon.svg");
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  left: 25px;
+}
+
+.current-date {
+  text-align: center;
+  background-color: #3468af;
+}
+
+.current-date__value {
+  display: block;
+  font-size: 2rem;
+  padding: 100px 25px;
+}
+
+.current-date__title {
+  padding: 15px 25px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  background-color: #1a4e95;
 }

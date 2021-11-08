@@ -23,4 +23,13 @@ html(lang="en")
               a.header__nav-link(href="/schedules/new") Add schedule
             li.header__nav-item(class=(path === '/users/:id' ? 'active-nav ' : ''))
               a.header__nav-link(href="/users/:id") Search user by ID
-    block content
+      .wrapper
+        aside.sidebar
+          section.section.intro
+            h1.intro__title Welcome to our schedule website!
+            a.intro__btn.user-icon(href="/users") Show Users
+            a.intro__btn.calendar-icon(href="/schedules") Show Schedules
+          section.section.current-date
+            h2.current-date__title Today is
+            span.current-date__value #{date}
+        block content

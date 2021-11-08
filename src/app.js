@@ -12,6 +12,7 @@ app.set('view engine', 'pug');
 app.set('views', 'src/views');
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(rootDir, 'public')));
 
 const { users } = require('./data');
