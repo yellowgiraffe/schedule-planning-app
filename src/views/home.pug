@@ -1,31 +1,41 @@
 extend layouts/main-layout.pug
-
+block styles
+  link(rel="stylesheet", href="/css/home.css")
 block content
-    main
-      section.intro
-        .container
-          h2.block-title Welcome to our schedule website!
-          a.show-users-btn(href="/users") Show Users
-          a.show-schedules-btn(href="/users") Show Schedules
-      section.add-user
-        .container
-          h2.block-title Add new user
-          form.users-form(action="/users" method="POST")
-            label(for="user-firstname") First name
-            input#user-firstname(type="text" name="user-firstname" required)
-            label(for="user-lastname") Last name
-            input#user-lastname(type="text" name="user-lastname" required)
-            label(for="user-email") Email
-            input#user-email(type="email" name="user-email" required)
-            label(for="user-password") Password
-            input#user-password(type="password" name="user-password" required)
-            input(type="submit")
-      section.add-schedule
-        .container
-          h2.block-title Add schedule
-          form.schedules-form(action="/schedules" method="POST")
-            label(for="user-id") 
-            select#user-id(name="user-id") 
-              each user, index in allUsers
-                option(value=index) #{user.firstname} #{user.lastname}
-            input(type="submit")
+  .container
+    main.main
+      section.section.intro
+        h1.intro__title Welcome to our schedule website!
+        a.intro__btn.user-icon(href="/users") Show Users
+        a.intro__btn.calendar-icon(href="/schedules") Show Schedules
+      section.section.user-stats
+        span.user-stats__num #{allUsers.length}
+        h2.user-stats__title users choose our service
+      section.section.schedules-stats
+        span.schedules-stats__num #{allSchedules.length}
+        h2.schedules-stats__title schedules successfully planed
+      section.section.current-date
+        h2.current-date__title Today is
+        span.current-date__value #{date}
+      //- section.add-user
+      //-   .container
+      //-     h2.block-title Add new user
+      //-     form.users-form(action="/users" method="POST")
+      //-       label(for="user-firstname") First name
+      //-       input#user-firstname(type="text" name="user-firstname" required)
+      //-       label(for="user-lastname") Last name
+      //-       input#user-lastname(type="text" name="user-lastname" required)
+      //-       label(for="user-email") Email
+      //-       input#user-email(type="email" name="user-email" required)
+      //-       label(for="user-password") Password
+      //-       input#user-password(type="password" name="user-password" required)
+      //-       input(type="submit")
+      //- section.add-schedule
+      //-   .container
+      //-     h2.block-title Add schedule
+      //-     form.schedules-form(action="/schedules" method="POST")
+      //-       label(for="user-id") 
+      //-       select#user-id(name="user-id") 
+      //-         each user, index in allUsers
+      //-           option(value=index) #{user.firstname} #{user.lastname}
+      //-       input(type="submit")

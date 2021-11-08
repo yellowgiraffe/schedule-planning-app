@@ -15,9 +15,16 @@ app.use(express.json());
 app.use(express.static(path.join(rootDir, 'public')));
 
 const { users } = require('./data');
+const { schedules } = require('./data');
 
 app.get('/', (req, res) => {
-  res.status(200).render('home', { pageTitle: 'Schedules website', allUsers: users, path: '/' });
+  res.status(200).render('home', {
+    pageTitle: 'Schedules website',
+    allUsers: users,
+    allSchedules: schedules,
+    date: new Date().toLocaleDateString('en', { weekday: 'long', month: 'long', day: 'numeric' }),
+    path: '/',
+  });
 });
 
 app.use('/users', usersRouter);
