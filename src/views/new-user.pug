@@ -1,0 +1,17 @@
+extend layouts/main-layout.pug
+
+block content
+  .container
+    section.add-user
+      h2.block-title Add new user
+      form.users-form(action="/users" method="POST")
+        label(for="user-firstname") First name
+        input#user-firstname(type="text" name="user-firstname" required)
+        label(for="user-lastname") Last name
+        input#user-lastname(type="text" name="user-lastname" required)
+        label(for="user-email") Email
+        input#user-email(type="email" name="user-email" required)
+        label(for="user-password") Password
+        input#user-password(type="password" name="user-password" required)
+        input(type="submit")
+        

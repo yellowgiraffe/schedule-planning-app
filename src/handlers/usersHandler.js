@@ -1,7 +1,9 @@
-const { users } = require('../data');
+const User = require('../models/User');
+
 const { schedules } = require('../data');
 
 exports.checkID = (req, res, next) => {
+  const users = User.getAll();
   if (req.params.id * 1 >= users.length) {
     return res.status(404).json({
       status: 'failed',
@@ -23,7 +25,8 @@ exports.checkBody = (req, res, next) => {
 
   if (!firstname || !lastname || !email || !password) {
     valid = false;
-  } if (firstname.trim() === lastname.trim()) {
+  }
+  if (firstname.trim() === lastname.trim()) {
     valid = false;
   } else {
     valid = true;
@@ -39,10 +42,14 @@ exports.checkBody = (req, res, next) => {
 };
 
 exports.getAllUsers = (req, res) => {
-  res.status(200).render('users', { pageTitle: 'Users', allUsers: users, path: '/users' });
+  const users = User.getAll();
+  res
+    .status(200)
+    .render('users', { pageTitle: 'Users', allUsers: users, path: '/users' });
 };
 
 exports.getUser = (req, res) => {
+  const users = User.getAll();
   const { id } = req.params;
   res.status(200).json({
     status: 'success',
@@ -67,10 +74,25 @@ exports.getScheduleByUser = (req, res) => {
 };
 
 exports.createUser = (req, res) => {
-  const newUser = { ...req.body };
+  const newUser = new User(
+    req.body.firstname,
+    req.body.lastname,
+    req.body.email,
+    req.body.password,
+  );
+  const users = User.getAll();
   users.push(newUser);
   res.status(201).json({
     status: 'success',
     data: users[users.length - 1],
+  });
+};
+
+exports.getForm = (req, res) => {
+  const users = User.getAll();
+  res.status(200).render('new-user', {
+    pageTitle: 'Add New User',
+    allUsers: users,
+    path: '/users/new',
   });
 };

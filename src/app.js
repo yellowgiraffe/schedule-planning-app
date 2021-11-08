@@ -1,7 +1,7 @@
 const express = require('express');
-const path = require('path');
+// const path = require('path');
 
-const rootDir = require('./utils/path');
+// const rootDir = require('./utils/path');
 
 const usersRouter = require('./routes/usersRouter');
 const schedulesRouter = require('./routes/schedulesRouter');
@@ -12,7 +12,7 @@ app.set('view engine', 'pug');
 app.set('views', 'src/views');
 
 app.use(express.json());
-app.use(express.static(path.join(rootDir, 'public')));
+// app.use(express.static(path.join(rootDir, 'public')));
 
 const { users } = require('./data');
 const { schedules } = require('./data');

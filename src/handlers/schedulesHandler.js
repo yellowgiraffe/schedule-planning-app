@@ -1,4 +1,5 @@
 const { schedules } = require('../data');
+const { users } = require('../data');
 
 exports.getAllSchedules = (req, res) => {
   res.status(200).json({
@@ -17,4 +18,15 @@ exports.createSchedule = (req, res) => {
     status: 'success',
     data: schedules[schedules.length - 1],
   });
+};
+
+exports.getForm = (req, res) => {
+  res
+    .status(200)
+    .render('new-schedule', {
+      pageTitle: 'Add New Schedule',
+      allUsers: users,
+      allSchedules: schedules,
+      path: '/schedules/new',
+    });
 };

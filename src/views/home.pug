@@ -17,25 +17,4 @@ block content
       section.section.current-date
         h2.current-date__title Today is
         span.current-date__value #{date}
-      //- section.add-user
-      //-   .container
-      //-     h2.block-title Add new user
-      //-     form.users-form(action="/users" method="POST")
-      //-       label(for="user-firstname") First name
-      //-       input#user-firstname(type="text" name="user-firstname" required)
-      //-       label(for="user-lastname") Last name
-      //-       input#user-lastname(type="text" name="user-lastname" required)
-      //-       label(for="user-email") Email
-      //-       input#user-email(type="email" name="user-email" required)
-      //-       label(for="user-password") Password
-      //-       input#user-password(type="password" name="user-password" required)
-      //-       input(type="submit")
-      //- section.add-schedule
-      //-   .container
-      //-     h2.block-title Add schedule
-      //-     form.schedules-form(action="/schedules" method="POST")
-      //-       label(for="user-id") 
-      //-       select#user-id(name="user-id") 
-      //-         each user, index in allUsers
-      //-           option(value=index) #{user.firstname} #{user.lastname}
-      //-       input(type="submit")
+        

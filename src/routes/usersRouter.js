@@ -10,6 +10,8 @@ router
   .get(usersHandler.getAllUsers)
   .post(usersHandler.checkBody, usersHandler.createUser);
 
+router.route('/new').get(usersHandler.getForm);
+
 router.route('/:id').get(usersHandler.getUser);
 
 router.route('/:id/schedule').get(usersHandler.getScheduleByUser);
