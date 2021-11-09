@@ -1,4 +1,4 @@
-const { users } = require('../data');
+const db = require('../utils/database');
 
 module.exports = class User {
   constructor(firstname, lastname, email, passowrd, imageUrl) {
@@ -9,11 +9,11 @@ module.exports = class User {
     this.imageUrl = imageUrl;
   }
 
-  add() {
-    users.push(this);
-  }
+  // add() {
+  //   users.push(this);
+  // }
 
   static getAll() {
-    return users;
+    return db.query('SELECT * FROM users');
   }
 };

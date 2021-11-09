@@ -1,15 +1,24 @@
 const express = require('express');
 const path = require('path');
 
+// const db = require('./utils/database');
 const rootDir = require('./utils/path');
-
-const usersRouter = require('./routes/usersRouter');
-const schedulesRouter = require('./routes/schedulesRouter');
 
 const app = express();
 
 app.set('view engine', 'pug');
 app.set('views', 'src/views');
+
+const usersRouter = require('./routes/usersRouter');
+const schedulesRouter = require('./routes/schedulesRouter');
+
+// db.query('SELECT * FROM users')
+//   .then((result) => {
+//     console.log(result.rows);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
