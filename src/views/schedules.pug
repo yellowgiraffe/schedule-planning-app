@@ -9,5 +9,8 @@ block content
       h2.section-title Schedules list
       ul.schedules__list
         each schedule in allSchedules
-          li.schedules__item #{schedule.day} 
+          li.schedules__item 
+            .schedules__day #{schedule.day} 
+            .schedules__start #{schedule.start_at} 
+            .schedules__end #{schedule.end_at} 
       p.results Results: #{allSchedules.length}
