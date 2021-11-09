@@ -1,17 +1,25 @@
-*{
+* {
   padding: 0;
   margin: 0;
   border: 0;
 }
-*,*:before,*:after{
+*,
+*:before,
+*:after {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-nav,footer,header,aside{display: block;}
+nav,
+footer,
+header,
+aside {
+  display: block;
+}
 
-html,body{
+html,
+body {
   height: 100%;
   width: 100%;
   font-size: 100%;
@@ -21,17 +29,42 @@ html,body{
   -moz-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
-input,button,textarea{font-family:inherit;}
+input,
+button,
+textarea {
+  font-family: inherit;
+}
 
-input::-ms-clear{display: none;}
-button{cursor: pointer;}
-button::-moz-focus-inner {padding:0;border:0;}
-a, a:visited{text-decoration: none;}
-a:hover{text-decoration: none;}
-ul li{list-style: none;}
+input::-ms-clear {
+  display: none;
+}
+button {
+  cursor: pointer;
+}
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+a,
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+ul li {
+  list-style: none;
+}
 
-h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
-
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: 400;
+}
 
 body {
   background-color: #1e253d;
@@ -77,6 +110,10 @@ body {
   margin-bottom: 20px;
 }
 
+.main-section {
+  padding: 20px 25px;
+}
+
 .section-title {
   margin-bottom: 20px;
   text-transform: uppercase;
@@ -115,7 +152,7 @@ body {
   background-color: #18a7aa;
 }
 
-.active-nav:first-child:after{
+.active-nav:first-child:after {
   border-bottom-left-radius: 6px;
 }
 
@@ -146,7 +183,7 @@ body {
 }
 
 .user-icon::before {
-  content: url("../img/user-icon.svg");
+  content: url('../img/user-icon.svg');
   position: absolute;
   width: 24px;
   height: 24px;
@@ -154,7 +191,7 @@ body {
 }
 
 .calendar-icon::before {
-  content: url("../img/calendar-icon.svg");
+  content: url('../img/calendar-icon.svg');
   position: absolute;
   width: 24px;
   height: 24px;
