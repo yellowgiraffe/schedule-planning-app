@@ -1,13 +1,22 @@
 extend layouts/main-layout.pug
 
+block styles
+  link(rel="stylesheet", href="/css/form.css")
+
 block content
   main.main
     section.section.main-section
       h2.section-title Add schedule
       form.schedules-form(action="/schedules" method="POST")
-        label(for="user-id") 
-        select#user-id(name="user-id") 
+        label.label(for="user-id") Selec user
+        select.select#user-id(name="user-id") 
           each user, index in allUsers
             option(value=index) #{user.firstname} #{user.lastname}
-        input(type="submit")
+        label.label(for="day") Select date
+        input.input#day(type="date" name="day")
+        label.label(for="start_at") Select starting time
+        input.input#time(type="time" name="time")
+        label.label(for="user-id") Select ending time
+        input.input(type="time")
+        input.input(type="submit")
         

@@ -3,12 +3,22 @@
   margin-bottom: 8px;
 }
 
-.input {
+.input,
+.select {
   display: block;
   width: 50%;
   border-radius: 6px;
   margin-bottom: 20px;
   padding: 10px 15px;
+}
+
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url('../img/arrow-down.png') calc(100% - 15px) 50% no-repeat #fff;
+  background-size: 20px 20px;
 }
 
 .input[type='submit'] {
