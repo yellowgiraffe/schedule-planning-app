@@ -14,12 +14,7 @@ exports.checkID = (req, res, next) => {
 };
 
 exports.checkBody = (req, res, next) => {
-  const {
-    firstname,
-    lastname,
-    email,
-    password,
-  } = req.body;
+  const { firstname, lastname, email, password } = req.body;
 
   let valid;
 
@@ -43,42 +38,34 @@ exports.checkBody = (req, res, next) => {
 
 exports.getAllUsers = (req, res) => {
   const users = User.getAll();
-  res
-    .status(200)
-    .render('users', {
-      pageTitle: 'Users',
-      allUsers: users,
-      date: new Date().toLocaleDateString('en', {
-        weekday: 'long',
-        month: 'long',
-        day: 'numeric',
-      }),
-      path: '/users',
-    });
+  res.status(200).render('users', {
+    pageTitle: 'Users',
+    allUsers: users,
+    date: new Date().toLocaleDateString('en', {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+    }),
+    path: '/users',
+  });
 };
 
 exports.getUser = (req, res) => {
   const users = User.getAll();
   const { id } = req.params;
-  res.status(200).json({
-    status: 'success',
-    data: {
-      user: users[id],
-    },
-  });
+  res.status(200).render('user', { user: users[id] });
 };
 
 exports.getScheduleByUser = (req, res) => {
   const { id } = req.params;
   const schedule = schedules.filter((el) => el.user_id === +id);
-  res.status(200).json({
-    status: 'success',
-    data: {
-      schedule:
-        schedule.length === 0
-          ? 'No schedules for this user in database'
-          : schedule,
-    },
+  const users = User.getAll();
+  const userID = users[id];
+  console.log(userID);
+  res.status(200).render('user-schedule', {
+    userSchedules: schedule,
+    firstname: userID.firstname,
+    lastname: userID.lastname,
   });
 };
 
@@ -87,7 +74,7 @@ exports.createUser = (req, res) => {
     req.body.firstname,
     req.body.lastname,
     req.body.email,
-    req.body.password,
+    req.body.password
   );
   const users = User.getAll();
   users.push(newUser);

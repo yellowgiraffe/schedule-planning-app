@@ -1,0 +1,10 @@
+extend layouts/main-layout.pug
+
+block styles
+  link(rel="stylesheet", href="/css/users.css")
+
+block content
+  main.main
+    section.section.user
+     img(src="/img/user-circle.png", alt="Profile image")
+     span #{user.firstname} #{user.lastname}

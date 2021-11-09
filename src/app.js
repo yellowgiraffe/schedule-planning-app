@@ -23,7 +23,11 @@ app.get('/', (req, res) => {
     pageTitle: 'Schedules website',
     allUsers: users,
     allSchedules: schedules,
-    date: new Date().toLocaleDateString('en', { weekday: 'long', month: 'long', day: 'numeric' }),
+    date: new Date().toLocaleDateString('en', {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+    }),
     path: '/',
   });
 });
