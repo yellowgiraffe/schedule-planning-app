@@ -1,0 +1,13 @@
+extend layouts/main-layout.pug
+
+block styles
+  link(rel="stylesheet", href="/css/schedules.css")
+
+block content
+  main.main
+    section.section.main-section
+      h2.section-title Schedules list
+      ul.schedules__list
+        each schedule in allSchedules
+          li.schedules__item #{schedule.day} 
+      p.results Results: #{allSchedules.length}

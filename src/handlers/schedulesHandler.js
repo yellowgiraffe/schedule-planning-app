@@ -2,13 +2,7 @@ const { schedules } = require('../data');
 const { users } = require('../data');
 
 exports.getAllSchedules = (req, res) => {
-  res.status(200).json({
-    status: 'success',
-    results: schedules.length,
-    data: {
-      schedules,
-    },
-  });
+  res.status(200).render('schedules', { allSchedules: schedules });
 };
 
 exports.createSchedule = (req, res) => {

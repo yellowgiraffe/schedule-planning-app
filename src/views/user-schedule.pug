@@ -5,11 +5,11 @@ block styles
 
 block content
   main.main
-    section.section.user-shedule
+    section.section.main-section
       if userSchedules.length > 0
-        h3 #{firstname} #{lastname}
+        h2.section-title #{firstname} #{lastname}
         each user in userSchedules
           p #{user.day} 
       else 
-       p No schedules for this user in database
+       h2.section-title No schedules for this user in database
     
