@@ -77,6 +77,11 @@ body {
   margin-bottom: 20px;
 }
 
+.section-title {
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
 .header__nav-list {
   display: flex;
 }

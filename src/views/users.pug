@@ -1,16 +1,22 @@
 extend layouts/main-layout.pug
 
+block styles
+  link(rel="stylesheet", href="/css/users.css")
+
 block content
-  main
-    .container
+  main.main
+    section.section.users
       if allUsers.length > 0
-        h1 Users List
-        ul
-          each user in allUsers
-            li
-              img(src="https://img.icons8.com/fluency/48/000000/user-male-circle.png", alt="User profile image")
-              h2 #{user.firstname} #{user.lastname}
-              a(href="") Check user details
-              a(href="") Check user's schedule
+        h2.section-title Users List
+        ul.users__list
+          each user, index in allUsers
+            li.users__item
+              .user__info
+                img.users__img(src="https://img.icons8.com/fluency/96/000000/user-male-circle.png", alt="User profile image")
+                h3.users__name #{user.firstname} #{user.lastname}
+              .users__control-panel
+                - var url = "/users/";
+                a.users__btn(href=url + index) Check details
+                a.users__btn(href=href=url + index + "/schedule") Check schedule
       else
         h1 No users
