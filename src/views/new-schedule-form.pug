@@ -1,0 +1,13 @@
+extend layouts/main-layout.pug
+
+block content
+  main.main
+    section.section.main-section
+      h2.section-title Add schedule
+      form.schedules-form(action="/schedules" method="POST")
+        label(for="user-id") 
+        select#user-id(name="user-id") 
+          each user, index in allUsers
+            option(value=index) #{user.firstname} #{user.lastname}
+        input(type="submit")
+        

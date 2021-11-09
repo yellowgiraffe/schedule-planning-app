@@ -1,21 +1,29 @@
-.user-stats,
-.schedules-stats {
-  text-align: center;
-  padding: 0 25px;
-}
-
 .user-stats__num,
 .schedules-stats__num {
   display: block;
+  position: relative;
   font-size: 5rem;
   font-weight: 400;
-  margin: 50px 0 20px;
 }
 
 .user-stats__title,
 .schedules-stats__title {
   font-weight: 400;
   font-size: 1.2rem;
-  padding: 0 25px;
-  margin-bottom: 50px;
+}
+
+.user-stats__num::before,
+.schedules-stats__num::before {
+  position: absolute;
+  width: 62px;
+  height: 62px;
+  left: 4rem;
+}
+
+.user-stats__num::before {
+  content: url('../img/user-icon.svg');
+}
+
+.schedules-stats__num::before {
+  content: url('../img/calendar-icon.svg');
 }

@@ -98,7 +98,7 @@ exports.createUser = (req, res) => {
 
 exports.getForm = (req, res) => {
   const users = User.getAll();
-  res.status(200).render('new-user', {
+  res.status(200).render('new-user-form', {
     pageTitle: 'Add New User',
     date: new Date().toLocaleDateString('en', {
       weekday: 'long',

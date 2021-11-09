@@ -1,12 +1,14 @@
 extend layouts/main-layout.pug
+
 block styles
   link(rel="stylesheet", href="/css/home.css")
+  
 block content
   main.main
-    section.section.user-stats
+    section.section.main-section
       span.user-stats__num #{allUsers.length}
-      h2.user-stats__title users choose our service
-    section.section.schedules-stats
+      h2.section-title users choose our service
+    section.section.main-section
       span.schedules-stats__num #{allSchedules.length}
-      h2.schedules-stats__title schedules successfully planed
+      h2.section-title schedules successfully planed
       

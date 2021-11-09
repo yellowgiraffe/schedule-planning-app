@@ -21,17 +21,15 @@ exports.createSchedule = (req, res) => {
 };
 
 exports.getForm = (req, res) => {
-  res
-    .status(200)
-    .render('new-schedule', {
-      pageTitle: 'Add New Schedule',
-      date: new Date().toLocaleDateString('en', {
-        weekday: 'long',
-        month: 'long',
-        day: 'numeric',
-      }),
-      allUsers: users,
-      allSchedules: schedules,
-      path: '/schedules/new',
-    });
+  res.status(200).render('new-schedule-form', {
+    pageTitle: 'Add New Schedule',
+    date: new Date().toLocaleDateString('en', {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+    }),
+    allUsers: users,
+    allSchedules: schedules,
+    path: '/schedules/new',
+  });
 };

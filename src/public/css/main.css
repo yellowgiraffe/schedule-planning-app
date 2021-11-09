@@ -156,7 +156,7 @@ body {
   border-bottom-left-radius: 6px;
 }
 
-.intro__title {
+.main-title {
   padding: 20px 25px;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
@@ -203,15 +203,15 @@ body {
   background-color: #3468af;
 }
 
-.current-date__value {
-  display: block;
-  font-size: 2rem;
-  padding: 100px 25px;
-}
-
 .current-date__title {
   padding: 15px 25px;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   background-color: #1a4e95;
+}
+
+.current-date__value {
+  display: block;
+  font-size: 2rem;
+  padding: 100px 25px;
 }
