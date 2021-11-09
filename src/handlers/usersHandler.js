@@ -53,7 +53,14 @@ exports.getAllUsers = (req, res) => {
 exports.getUser = (req, res) => {
   const users = User.getAll();
   const { id } = req.params;
-  res.status(200).render('user', { user: users[id] });
+  res.status(200).render('user', {
+    user: users[id],
+    date: new Date().toLocaleDateString('en', {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+    }),
+  });
 };
 
 exports.getScheduleByUser = (req, res) => {
@@ -66,6 +73,11 @@ exports.getScheduleByUser = (req, res) => {
     userSchedules: schedule,
     firstname: userID.firstname,
     lastname: userID.lastname,
+    date: new Date().toLocaleDateString('en', {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+    }),
   });
 };
 
