@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 
-// const db = require('./utils/database');
+// const sequelize = require('./utils/database');
 const rootDir = require('./utils/path');
 
 const app = express();

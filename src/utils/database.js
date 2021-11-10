@@ -1,14 +1,22 @@
-const { Pool } = require('pg');
+const Sequelize = require('sequelize');
 
-const pool = new Pool({
-  user: 'schedules_app_admin',
-  database: 'schedules_app',
-  password: 'admin1234',
-  host: 'localhost',
-  port: 5432,
-});
+const sequelize = new Sequelize(
+  'postgres://schedules_app_admin:admin1234@localhost:5432/schedules_app'
+);
 
-module.exports = pool;
+module.exports = sequelize;
+
+// const { Pool } = require('pg');
+
+// const pool = new Pool({
+//   user: 'schedules_app_admin',
+//   database: 'schedules_app',
+//   password: 'admin1234',
+//   host: 'localhost',
+//   port: 5432,
+// });
+
+// module.exports = pool;
 
 // CREATE DATABASE schedules_app
 // CREATE user schedules_app_admin WITH ENCRYPTED PASSWORD 'admin1234'

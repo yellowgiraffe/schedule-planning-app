@@ -1,20 +1,23 @@
 const User = require('../models/User');
 
-const { schedules } = require('../data');
-
 exports.checkID = (req, res, next) => {
-  const users = User.getAll();
-  if (req.params.id * 1 >= users.length) {
-    return res.status(404).json({
-      status: 'failed',
-      message: 'Invalid ID. User does not exist',
-    });
-  }
+  // const users = User.getAll();
+  // if (req.params.id * 1 >= users.length) {
+  //   return res.status(404).json({
+  //     status: 'failed',
+  //     message: 'Invalid ID. User does not exist',
+  //   });
+  // }
   next();
 };
 
 exports.checkBody = (req, res, next) => {
-  const { firstname, lastname, email, password } = req.body;
+  const {
+    firstname,
+    lastname,
+    email,
+    password
+  } = req.body;
 
   let valid;
 
@@ -37,42 +40,48 @@ exports.checkBody = (req, res, next) => {
 };
 
 exports.getAllUsers = (req, res) => {
-  const users = User.getAll();
-  res.status(200).render('users', {
-    pageTitle: 'Users',
-    allUsers: users,
-    date: new Date().toLocaleDateString('en', {
-      weekday: 'long',
-      month: 'long',
-      day: 'numeric',
-    }),
-    path: '/users',
-  });
+  User.findAll()
+    .then((users) => {
+      res.status(200).render('users', {
+        pageTitle: 'Users',
+        path: '/users',
+        allUsers: users,
+        date: new Date().toLocaleDateString('en', {
+          weekday: 'long',
+          month: 'long',
+          day: 'numeric',
+        })
+      });
+    }).catch((err) => {
+      console.log(err);
+    });
 };
 
 exports.getUser = (req, res) => {
+  console.log(req.params);
   const { id } = req.params;
-  User.getAll()
-    .then((result) => {
+  User.findByPk(id)
+    .then((user) => {
       res.status(200).render('user', {
-        user: result.rows[id],
+        user,
         date: new Date().toLocaleDateString('en', {
           weekday: 'long',
           month: 'long',
           day: 'numeric',
         }),
       });
-    })
-    .catch((err) => console.log(err));
+    }).catch((err) => {
+      console.log(err);
+    });
 };
 
 exports.getScheduleByUser = (req, res) => {
   const { id } = req.params;
-  const schedule = schedules.filter((el) => el.user_id === +id);
+  // const schedule = schedules.filter((el) => el.user_id === +id);
   const users = User.getAll();
   const userID = users[id];
   res.status(200).render('user-schedule', {
-    userSchedules: schedule,
+    // userSchedules: schedule,
     firstname: userID.firstname,
     lastname: userID.lastname,
     date: new Date().toLocaleDateString('en', {
@@ -84,22 +93,25 @@ exports.getScheduleByUser = (req, res) => {
 };
 
 exports.createUser = (req, res) => {
-  const newUser = new User(
-    req.body.firstname,
-    req.body.lastname,
-    req.body.email,
-    req.body.password
-  );
-  const users = User.getAll();
-  users.push(newUser);
+  User.create({
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    email: req.body.email,
+    password: req.body.password
+  }).then((result) => {
+    console.log(result);
+  }).catch((err) => {
+    console.log(err);
+  });
+
   res.status(201).json({
     status: 'success',
-    data: users[users.length - 1],
+    // data: users[users.length - 1],
   });
 };
 
 exports.getForm = (req, res) => {
-  const users = User.getAll();
+  // const users = User.getAll();
   res.status(200).render('new-user-form', {
     pageTitle: 'Add New User',
     date: new Date().toLocaleDateString('en', {
@@ -107,7 +119,7 @@ exports.getForm = (req, res) => {
       month: 'long',
       day: 'numeric',
     }),
-    allUsers: users,
+    // allUsers: users,
     path: '/users/new',
   });
 };

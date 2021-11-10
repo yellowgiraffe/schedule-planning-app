@@ -13,6 +13,7 @@
     },
     "rules": {
         "consistent-return": "off",
-        "operator-linebreak": "off"
+        "operator-linebreak": "off",
+        "comma-dangle": ["error", "only-multiline"]
     }
 }

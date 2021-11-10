@@ -9,14 +9,14 @@ block content
       if allUsers.length > 0
         h2.section-title Users List
         ul.users__list
-          each user, index in allUsers
+          each user in allUsers
             li.users__item
               .user__info
                 img.users__img(src="/img/user-circle.png", alt="User profile image")
                 h3.users__name #{user.firstname} #{user.lastname}
               .users__control-panel
                 - var url = "/users/";
-                a.users__btn(href=url + index) Check details
-                a.users__btn(href=href=url + index + "/schedule") Check schedule
+                a.users__btn(href=url + user.id) Check details
+                a.users__btn(href=href=url + user.id + "/schedule") Check schedule
       else
         h2.section-title No users
