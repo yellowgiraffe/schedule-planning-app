@@ -58,7 +58,6 @@ exports.getAllUsers = (req, res) => {
 };
 
 exports.getUser = (req, res) => {
-  console.log(req.params);
   const { id } = req.params;
   User.findByPk(id)
     .then((user) => {
@@ -98,15 +97,10 @@ exports.createUser = (req, res) => {
     lastname: req.body.lastname,
     email: req.body.email,
     password: req.body.password
-  }).then((result) => {
-    console.log(result);
+  }).then(() => {
+    res.status(201).redirect('/');
   }).catch((err) => {
     console.log(err);
-  });
-
-  res.status(201).json({
-    status: 'success',
-    // data: users[users.length - 1],
   });
 };
 
