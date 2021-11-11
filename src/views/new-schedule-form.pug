@@ -8,11 +8,11 @@ block content
     section.section.main-section
       h2.section-title Add schedule
       form.schedules-form(action="/schedules" method="POST")
-        label.label(for="user-id") Selec user
-        select.select#user-id(name="user-id") 
+        label.label(for="userID") Selec user
+        select.select#userID(name="userID") 
           if allUsers.length > 0
-            each user, index in allUsers
-              option(value=index) #{user.firstname} #{user.lastname}
+            each user in allUsers
+              option(value=user.id) #{user.firstname} #{user.lastname}
           else
             option(value=index) No users in database
         label.label(for="date") Select date

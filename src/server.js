@@ -26,7 +26,7 @@ sequelize
         password: 'Natalia87'
       });
     }
-    console.log(user);
+    // console.log(user);
     return user;
   })
   .then(() => {

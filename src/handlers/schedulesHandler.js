@@ -25,16 +25,16 @@ exports.getAllSchedules = (req, res) => {
 exports.createSchedule = (req, res) => {
   console.log(req.body);
   Schedule.create({
-    id: req.body.id,
-    date: req.body.day,
+    date: req.body.date,
     startAt: req.body.startAt,
     endAt: req.body.endAt,
-    // req.user.createSchedule
+    userId: req.body.userId
   }).then(() => {
     res.status(201).redirect('/schedules');
   }).catch((err) => {
     console.log(err);
   });
+
   // const newSchedule = { ...req.body };
   // schedules.push(newSchedule);
   // res.status(201).json({
