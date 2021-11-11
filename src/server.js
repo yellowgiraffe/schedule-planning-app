@@ -14,9 +14,22 @@ User.hasMany(Schedule);
 const PORT = 5000;
 
 sequelize
-  .sync({ force: true })
+  // .sync({ force: true })
+  .sync()
+  .then(() => User.findByPk(1))
+  .then((user) => {
+    if (!user) {
+      return User.create({
+        firstname: 'Natalia',
+        lastname: 'Lis',
+        email: 'lis.natalia@gmail.com',
+        password: 'Natalia87'
+      });
+    }
+    console.log(user);
+    return user;
+  })
   .then(() => {
-    // console.log(result);
     app.listen(PORT, () => {
       console.log(`Up & Running on ${PORT}...`);
     });

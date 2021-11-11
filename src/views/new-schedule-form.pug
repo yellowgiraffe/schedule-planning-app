@@ -10,13 +10,15 @@ block content
       form.schedules-form(action="/schedules" method="POST")
         label.label(for="user-id") Selec user
         select.select#user-id(name="user-id") 
-          each user, index in allUsers
-            option(value=index) #{user.firstname} #{user.lastname}
-        label.label(for="day") Select date
-        input.input#day(type="date" name="day")
-        label.label(for="start_at") Select starting time
-        input.input#time(type="time" name="time")
-        label.label(for="user-id") Select ending time
-        input.input(type="time")
-        input.input(type="submit")
-        
+          if allUsers.length > 0
+            each user, index in allUsers
+              option(value=index) #{user.firstname} #{user.lastname}
+          else
+            option(value=index) No users in database
+        label.label(for="date") Select date
+        input.input#date(type="date" name="date")
+        label.label(for="startAt") Select starting time
+        input.input#startAt(type="time" name="startAt")
+        label.label(for="endAt") Select ending time
+        input.input#endAt(type="time" name="endAt")
+        input.input(type="submit" value="Submit")
