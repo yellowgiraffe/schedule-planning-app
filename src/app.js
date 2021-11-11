@@ -12,14 +12,6 @@ app.set('views', 'src/views');
 const usersRouter = require('./routes/usersRouter');
 const schedulesRouter = require('./routes/schedulesRouter');
 
-// db.query('SELECT * FROM users')
-//   .then((result) => {
-//     console.log(result.rows);
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(rootDir, 'public')));

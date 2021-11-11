@@ -6,7 +6,7 @@ const Schedule = sequelize.define('schedule', {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
-    primarykey: true
+    primaryKey: true,
   },
   startAt: {
     type: Sequelize.DATE,

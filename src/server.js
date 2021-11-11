@@ -2,10 +2,19 @@ const app = require('./app');
 
 const sequelize = require('./utils/database');
 
+const User = require('./models/User');
+const Schedule = require('./models/Schedule');
+
+Schedule.belongsTo(User, {
+  constraints: true,
+  onDelete: 'CASCADE'
+});
+User.hasMany(Schedule);
+
 const PORT = 5000;
 
 sequelize
-  .sync()
+  .sync({ force: true })
   .then(() => {
     // console.log(result);
     app.listen(PORT, () => {
