@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Schedule = require('../models/Schedule');
 
 exports.checkID = (req, res, next) => {
   // const users = User.getAll();
@@ -76,17 +77,29 @@ exports.getUser = (req, res) => {
 
 exports.getScheduleByUser = (req, res) => {
   const { id } = req.params;
-  User.findByPk(id);
-  res.status(200).render('user-schedule', {
-    // userSchedules: schedule,
-    firstname: userID.firstname,
-    lastname: userID.lastname,
-    date: new Date().toLocaleDateString('en', {
-      weekday: 'long',
-      month: 'long',
-      day: 'numeric',
-    }),
-  });
+  Schedule.findAll({ where: { userId: id } })
+    .then((schedules) => {
+      console.log(schedules);
+      res.status(200).render('user-schedule', {
+        userSchedules: schedules,
+        pageTitle: 'User schedule',
+        date: new Date().toLocaleDateString('en', {
+          weekday: 'long',
+          month: 'long',
+          day: 'numeric',
+        }),
+      });
+    });
+
+  // res.status(200).render('user-schedule', {
+  //   // userSchedules: schedule,
+  //   firstname: userID.firstname,
+  //   lastname: userID.lastname,
+  //   date: new Date().toLocaleDateString('en', {
+  //     weekday: 'long',
+  //     month: 'long',
+  //     day: 'numeric',
+  //   }),
 
   // // const schedule = schedules.filter((el) => el.user_id === +id);
   // const users = User.getAll();

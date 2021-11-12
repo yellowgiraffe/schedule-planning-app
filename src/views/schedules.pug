@@ -7,10 +7,13 @@ block content
   main.main
     section.section.main-section
       h2.section-title Schedules list
-      ul.schedules__list
-        each schedule in allSchedules
-          li.schedules__item 
-            .schedules__day #{schedule.day} 
-            .schedules__start #{schedule.start_at} 
-            .schedules__end #{schedule.end_at} 
-      p.results Results: #{allSchedules.length}
+      if allSchedules.length > 0
+        ul.schedules__list
+          each schedule in allSchedules
+            li.schedules__item 
+              .schedules__start #{schedule.startAt} 
+              .schedules__end #{schedule.endAt}
+              p ----------
+        p.results Results: #{allSchedules.length}
+      else
+        h2.section-title No schedules
