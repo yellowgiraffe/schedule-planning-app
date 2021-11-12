@@ -15,10 +15,8 @@ block content
               option(value=user.id) #{user.firstname} #{user.lastname}
           else
             option(value=index) No users in database
-        label.label(for="date") Select date
-        input.input#date(type="date" name="date")
-        label.label(for="startAt") Select starting time
-        input.input#startAt(type="time" name="startAt")
-        label.label(for="endAt") Select ending time
-        input.input#endAt(type="time" name="endAt")
+        label.label(for="startAt") Select starting date and time
+        input.input#startAt(type="datetime-local" name="startAt")
+        label.label(for="endAt") Select ending date and time
+        input.input#endAt(type="datetime-local" name="endAt")
         input.input(type="submit" value="Submit")

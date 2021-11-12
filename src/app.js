@@ -18,6 +18,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(rootDir, 'public')));
 
+app.use((req, res, next) => {
+  User.findByPk(1)
+    .then((user) => {
+      req.user = user;
+      next();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 app.get('/', (req, res) => {
   res.status(200).render('home', {
     pageTitle: 'Schedules website',
@@ -34,17 +45,6 @@ app.get('/', (req, res) => {
 
 app.use('/users', usersRouter);
 app.use('/schedules', schedulesRouter);
-
-app.use((req, res, next) => {
-  User.findByPk(1)
-    .then((user) => {
-      req.user = user;
-      next();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
 
 app.use((req, res) => {
   res.status(404).render('404', { pageTitle: 'Page not found' });

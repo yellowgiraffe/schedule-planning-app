@@ -76,9 +76,7 @@ exports.getUser = (req, res) => {
 
 exports.getScheduleByUser = (req, res) => {
   const { id } = req.params;
-  // const schedule = schedules.filter((el) => el.user_id === +id);
-  const users = User.getAll();
-  const userID = users[id];
+  User.findByPk(id);
   res.status(200).render('user-schedule', {
     // userSchedules: schedule,
     firstname: userID.firstname,
@@ -89,6 +87,20 @@ exports.getScheduleByUser = (req, res) => {
       day: 'numeric',
     }),
   });
+
+  // // const schedule = schedules.filter((el) => el.user_id === +id);
+  // const users = User.getAll();
+  // const userID = users[id];
+  // res.status(200).render('user-schedule', {
+  //   // userSchedules: schedule,
+  //   firstname: userID.firstname,
+  //   lastname: userID.lastname,
+  //   date: new Date().toLocaleDateString('en', {
+  //     weekday: 'long',
+  //     month: 'long',
+  //     day: 'numeric',
+  //   }),
+  // });
 };
 
 exports.createUser = (req, res) => {

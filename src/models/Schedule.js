@@ -8,10 +8,6 @@ const Schedule = sequelize.define('schedule', {
     allowNull: false,
     primaryKey: true,
   },
-  date: {
-    type: Sequelize.DATEONLY,
-    allowNull: false
-  },
   startAt: {
     type: Sequelize.DATE,
     allowNull: false
