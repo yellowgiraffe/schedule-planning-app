@@ -1,19 +1,19 @@
 const express = require('express');
-const usersHandler = require('../controllers/usersController');
+const usersController = require('../controllers/usersController');
 
 const router = express.Router();
 
-router.param('id', usersHandler.checkID);
+router.param('id', usersController.checkID);
 
 router
   .route('/')
-  .get(usersHandler.getAllUsers)
-  .post(usersHandler.checkBody, usersHandler.createUser);
+  .get(usersController.getAllUsers)
+  .post(usersController.checkBody, usersController.createUser);
 
-router.route('/new').get(usersHandler.getForm);
+router.route('/new').get(usersController.getForm);
 
-router.route('/:id').get(usersHandler.getUser);
+router.route('/:id').get(usersController.getUser);
 
-router.route('/:id/schedule').get(usersHandler.getScheduleByUser);
+router.route('/:id/schedule').get(usersController.getScheduleByUser);
 
 module.exports = router;

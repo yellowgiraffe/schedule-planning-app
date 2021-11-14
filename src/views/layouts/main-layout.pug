@@ -24,8 +24,8 @@ html(lang="en")
             li.header__nav-item(class=(path === '/users/:id' ? 'active-nav ' : ''))
               a.header__nav-link(href="/users/:id") Search user by ID
         .header__btns
-          button Log In 
-          button Sign Up
+          a(href="/login")  Log In 
+          a(href="/signup")  Sign Up
       .wrapper
         aside.sidebar
           section.section

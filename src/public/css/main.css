@@ -159,7 +159,7 @@ body {
   border-bottom-left-radius: 6px;
 }
 
-.header__btns button {
+.header__btns a {
   margin-right: 25px;
   background-color: #18a7aa;
   color: #fff;
@@ -170,7 +170,7 @@ body {
   transition: .2s;
 }
 
-.header__btns button:hover {
+.header__btns a:hover {
   background-color: #147e80;
 }
 

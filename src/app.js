@@ -5,6 +5,7 @@ const rootDir = require('./utils/path');
 
 const usersRouter = require('./routes/usersRouter');
 const schedulesRouter = require('./routes/schedulesRouter');
+const authRouter = require('./routes/authRouter');
 const { users } = require('./data');
 const { schedules } = require('./data');
 const User = require('./models/User');
@@ -45,6 +46,7 @@ app.get('/', (req, res) => {
 
 app.use('/users', usersRouter);
 app.use('/schedules', schedulesRouter);
+app.use(authRouter);
 
 app.use((req, res) => {
   res.status(404).render('404', { pageTitle: 'Page not found' });
