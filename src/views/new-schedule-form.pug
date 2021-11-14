@@ -6,17 +6,20 @@ block styles
 block content
   main.main
     section.section.main-section
-      h2.section-title Add schedule
-      form.schedules-form(action="/schedules" method="POST")
-        label.label(for="userID") Selec user
-        select.select#userID(name="userID") 
-          if allUsers.length > 0
-            each user in allUsers
-              option(value=user.id) #{user.firstname} #{user.lastname}
-          else
-            option(value=index) No users in database
-        label.label(for="startAt") Select starting date and time
-        input.input#startAt(type="datetime-local" name="startAt")
-        label.label(for="endAt") Select ending date and time
-        input.input#endAt(type="datetime-local" name="endAt")
-        input.input(type="submit" value="Submit")
+      if isLoggedIn
+        h2.section-title Add schedule
+        form.schedules-form(action="/schedules" method="POST")
+          label.label(for="userID") Selec user
+          select.select#userID(name="userID") 
+            if allUsers.length > 0
+              each user in allUsers
+                option(value=user.id) #{user.firstname} #{user.lastname}
+            else
+              option(value=index) No users in database
+          label.label(for="startAt") Select starting date and time
+          input.input#startAt(type="datetime-local" name="startAt")
+          label.label(for="endAt") Select ending date and time
+          input.input#endAt(type="datetime-local" name="endAt")
+          input.input(type="submit" value="Submit")
+      else
+        h2.section-title Please login to add new schedule

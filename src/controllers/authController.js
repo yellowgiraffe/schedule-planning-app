@@ -5,6 +5,11 @@ exports.getLogin = (req, res) => {
   });
 };
 
+exports.postLogin = (req, res) => {
+  req.session.isLoggedIn = true;
+  res.status(200).redirect('/');
+};
+
 exports.getSignup = (req, res) => {
   res.status(200).render('auth/signup', {
     pageTitle: 'Sign Up',

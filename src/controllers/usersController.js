@@ -116,5 +116,6 @@ exports.getForm = (req, res) => {
     }),
     // allUsers: users,
     path: '/users/new',
+    isLoggedIn: req.isLoggedIn
   });
 };

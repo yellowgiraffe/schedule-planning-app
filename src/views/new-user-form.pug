@@ -6,15 +6,18 @@ block styles
 block content
   main.main
     section.section.main-section
-      h2.section-title Add new user
-      form.users-form.form(action="/users" method="POST")
-        label.label(for="firstname") First name
-        input.input#user-firstname(type="text" name="firstname" required)
-        label.label(for="lastname") Last name
-        input.input#user-lastname(type="text" name="lastname" required)
-        label.label(for="email") Email
-        input.input#user-email(type="email" name="email" required)
-        label.label(for="password") Password
-        input.input#user-password(type="password" name="password" required)
-        input.input(type="submit")
+      if isLoggedIn
+        h2.section-title Add new user
+        form.users-form.form(action="/users" method="POST")
+          label.label(for="firstname") First name
+          input.input#user-firstname(type="text" name="firstname" required)
+          label.label(for="lastname") Last name
+          input.input#user-lastname(type="text" name="lastname" required)
+          label.label(for="email") Email
+          input.input#user-email(type="email" name="email" required)
+          label.label(for="password") Password
+          input.input#user-password(type="password" name="password" required)
+          input.input(type="submit")
+      else
+        h2.section-title Please login to add new schedule
           

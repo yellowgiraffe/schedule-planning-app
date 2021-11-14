@@ -28,7 +28,7 @@ exports.createSchedule = (req, res) => {
     endAt: req.body.endAt,
     userId: req.user.id
   }).then(() => {
-    res.status(201).render('schedules');
+    res.status(201).redirect('schedules');
   }).catch((err) => {
     console.log(err);
   });
@@ -53,6 +53,7 @@ exports.getForm = (req, res) => {
         }),
         allUsers: users,
         path: '/schedules/new',
+        isLoggedIn: req.isLoggedIn,
       });
     })
     .catch((err) => {
