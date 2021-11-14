@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../utils/database');
+// const validator = require('validator');
 
 const User = sequelize.define('user', {
   id: {
@@ -19,6 +20,14 @@ const User = sequelize.define('user', {
   email: {
     type: Sequelize.STRING,
     allowNull: false,
+    set(email) {
+      this.setDataValue('email', email.toLowerCase);
+    },
+    validate: {
+      isEmail: {
+        msg: 'Please enter you email'
+      }
+    }
   },
   password: {
     type: Sequelize.STRING,

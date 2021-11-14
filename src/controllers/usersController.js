@@ -90,30 +90,6 @@ exports.getScheduleByUser = (req, res) => {
         }),
       });
     });
-
-  // res.status(200).render('user-schedule', {
-  //   // userSchedules: schedule,
-  //   firstname: userID.firstname,
-  //   lastname: userID.lastname,
-  //   date: new Date().toLocaleDateString('en', {
-  //     weekday: 'long',
-  //     month: 'long',
-  //     day: 'numeric',
-  //   }),
-
-  // // const schedule = schedules.filter((el) => el.user_id === +id);
-  // const users = User.getAll();
-  // const userID = users[id];
-  // res.status(200).render('user-schedule', {
-  //   // userSchedules: schedule,
-  //   firstname: userID.firstname,
-  //   lastname: userID.lastname,
-  //   date: new Date().toLocaleDateString('en', {
-  //     weekday: 'long',
-  //     month: 'long',
-  //     day: 'numeric',
-  //   }),
-  // });
 };
 
 exports.createUser = (req, res) => {

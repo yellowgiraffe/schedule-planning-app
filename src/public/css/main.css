@@ -74,6 +74,9 @@ body {
 }
 
 .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   height: 100px;
   margin: 20px 0;
   font-size: 1.3rem;
@@ -154,6 +157,21 @@ body {
 
 .active-nav:first-child:after {
   border-bottom-left-radius: 6px;
+}
+
+.header__btns button {
+  margin-right: 25px;
+  background-color: #18a7aa;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: .9rem;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.header__btns button:hover {
+  background-color: #147e80;
 }
 
 .main-title {
