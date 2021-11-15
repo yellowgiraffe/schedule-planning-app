@@ -64,11 +64,6 @@ exports.getAllUsers = (req, res) => {
         pageTitle: 'Users',
         path: '/users',
         allUsers: users,
-        date: new Date().toLocaleDateString('en', {
-          weekday: 'long',
-          month: 'long',
-          day: 'numeric',
-        })
       });
     }).catch((err) => {
       console.log(err);
@@ -81,11 +76,6 @@ exports.getUser = (req, res) => {
     .then((user) => {
       res.status(200).render('user', {
         user,
-        date: new Date().toLocaleDateString('en', {
-          weekday: 'long',
-          month: 'long',
-          day: 'numeric',
-        }),
       });
     }).catch((err) => {
       console.log(err);
@@ -100,11 +90,6 @@ exports.getScheduleByUser = (req, res) => {
       res.status(200).render('user-schedule', {
         userSchedules: schedules,
         pageTitle: 'User schedule',
-        date: new Date().toLocaleDateString('en', {
-          weekday: 'long',
-          month: 'long',
-          day: 'numeric',
-        }),
       });
     });
 };
@@ -125,11 +110,6 @@ exports.createUser = (req, res) => {
 exports.getForm = (req, res) => {
   res.status(200).render('new-user-form', {
     pageTitle: 'Add New User',
-    date: new Date().toLocaleDateString('en', {
-      weekday: 'long',
-      month: 'long',
-      day: 'numeric',
-    }),
     path: '/users/new',
     isLoggedIn: true,
   });

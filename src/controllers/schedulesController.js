@@ -8,13 +8,9 @@ exports.getAllSchedules = (req, res) => {
         pageTitle: 'Schedules',
         path: '/schedules',
         allSchedules: schedules,
-        date: new Date().toLocaleDateString('en', {
-          weekday: 'long',
-          month: 'long',
-          day: 'numeric',
-        })
       });
-    }).catch((err) => {
+    })
+    .catch((err) => {
       console.log(err);
     });
 };
@@ -36,11 +32,6 @@ exports.getForm = (req, res) => {
     .then((users) => {
       res.status(200).render('new-schedule-form', {
         pageTitle: 'Add New Schedule',
-        date: new Date().toLocaleDateString('en', {
-          weekday: 'long',
-          month: 'long',
-          day: 'numeric',
-        }),
         allUsers: users,
         path: '/schedules/new',
       });

@@ -32,5 +32,10 @@ html(lang="en")
             a.intro__btn.calendar-icon(href="/schedules") Show Schedules
           section.section.current-date
             h2.section-title.current-date__title Today is
-            span.current-date__value #{date}
+            -function day() {
+              -var date = new Date();
+              -var day = date.toLocaleDateString('en', { weekday: 'long', month: 'long', day: 'numeric' });
+              -return day;
+            -}
+            span.current-date__value #{day()}
         block content

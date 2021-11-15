@@ -25,11 +25,10 @@ block content
               .schedules__start
                 div Start at:
                 .start-day #{day(schedule.startAt)} 
-                .start-time #{time(schedule.endAt)}
+                .start-time #{time(schedule.startAt)}
               .schedules__end
                 div End at:
-                .end-day #{day(schedule.startAt)} 
+                .end-day #{day(schedule.endAt)} 
                 .end-time #{time(schedule.endAt)}
-                //- End at: #{prettyDate(schedule.endAt)}
       else
         h2.section-title No schedules
