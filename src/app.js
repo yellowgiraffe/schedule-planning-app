@@ -43,10 +43,9 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
   res.status(200).render('home', {
     pageTitle: 'Schedules website',
+    path: '/',
     allUsers: users,
     allSchedules: schedules,
-    date: new Date(),
-    path: '/',
   });
 });
 

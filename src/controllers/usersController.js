@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const Schedule = require('../models/Schedule');
 
@@ -35,13 +36,22 @@ exports.validateNewUser = (req, res, next) => {
     errors.push({ message: 'Passwords should be the same. Please try again' });
   }
 
-  if (errors.length > 0) {
-    res.render('new-user-form', {
-      errors,
-      isLoggedIn: true,
-    });
-  }
+  User.findAll({ where: { email: req.body.email } })
+    .then((emails) => {
+      if (emails.length > 0) {
+        errors.push({ message: 'User with this email already exists' });
+      }
 
+      if (errors.length > 0) {
+        res.render('new-user-form', {
+          errors,
+          isLoggedIn: true,
+        });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   // if (firstname.trim() === lastname.trim()) {
   //   valid = false;
   // } else {
@@ -54,6 +64,20 @@ exports.validateNewUser = (req, res, next) => {
   //     message: 'Missing firstmane, lastname, email or password property',
   //   });
   // }
+  next();
+};
+
+exports.hashPassword = (req, res, next) => {
+  const { password } = req.body;
+  bcrypt.hash(password, 10)
+    .then((hashedPassowrd) => {
+      // Store hash in your password DB.
+      console.log(hashedPassowrd);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
   next();
 };
 
@@ -86,7 +110,6 @@ exports.getScheduleByUser = (req, res) => {
   const { id } = req.params;
   Schedule.findAll({ where: { userId: id } })
     .then((schedules) => {
-      console.log(schedules);
       res.status(200).render('user-schedule', {
         userSchedules: schedules,
         pageTitle: 'User schedule',
@@ -101,7 +124,7 @@ exports.createUser = (req, res) => {
     email: req.body.email,
     password: req.body.password
   }).then(() => {
-    res.status(201).redirect('/');
+    res.status(201).redirect('/users');
   }).catch((err) => {
     console.log(err);
   });
