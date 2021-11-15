@@ -52,31 +52,6 @@ exports.validateNewUser = (req, res, next) => {
     .catch((err) => {
       console.log(err);
     });
-  // if (firstname.trim() === lastname.trim()) {
-  //   valid = false;
-  // } else {
-  //   valid = true;
-  // }
-
-  // if (!valid) {
-  //   return res.status(400).json({
-  //     status: 'fail',
-  //     message: 'Missing firstmane, lastname, email or password property',
-  //   });
-  // }
-  next();
-};
-
-exports.hashPassword = (req, res, next) => {
-  const { password } = req.body;
-  bcrypt.hash(password, 10)
-    .then((hashedPassowrd) => {
-      // Store hash in your password DB.
-      console.log(hashedPassowrd);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
 
   next();
 };
@@ -119,10 +94,10 @@ exports.getScheduleByUser = (req, res) => {
 
 exports.createUser = (req, res) => {
   User.create({
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
+    firstname: req.body.firstname.trim(),
+    lastname: req.body.lastname.trim(),
     email: req.body.email,
-    password: req.body.password
+    password: bcrypt.hashSync(req.body.password, 10),
   }).then(() => {
     res.status(201).redirect('/users');
   }).catch((err) => {
