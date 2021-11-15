@@ -8,12 +8,28 @@ block content
     section.section.main-section
       h2.section-title Schedules list
       if allSchedules.length > 0
+        p.results Results: #{allSchedules.length}
         ul.schedules__list
           each schedule in allSchedules
-            li.schedules__item 
-              .schedules__start #{schedule.startAt} 
-              .schedules__end #{schedule.endAt}
-              p ----------
-        p.results Results: #{allSchedules.length}
+            li.schedules__item
+              -function day(date) {
+                -var date = new Date(date);
+                -var day = date.toLocaleDateString('en', { weekday: 'long', month: 'long', day: 'numeric' });
+                -return day;
+              -}
+              -function time(date) {
+                -var date = new Date(date);
+                -var time = date.toLocaleTimeString('en-GB', {hour: '2-digit', minute:'2-digit'});
+                -return time;
+              -}
+              .schedules__start
+                div Start at:
+                .start-day #{day(schedule.startAt)} 
+                .start-time #{time(schedule.endAt)}
+              .schedules__end
+                div End at:
+                .end-day #{day(schedule.startAt)} 
+                .end-time #{time(schedule.endAt)}
+                //- End at: #{prettyDate(schedule.endAt)}
       else
         h2.section-title No schedules
