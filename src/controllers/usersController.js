@@ -12,31 +12,48 @@ exports.checkID = (req, res, next) => {
   next();
 };
 
-exports.checkBody = (req, res, next) => {
+exports.validateNewUser = (req, res, next) => {
   const {
     firstname,
     lastname,
     email,
-    password
+    password,
+    passwordRepeat
   } = req.body;
 
-  let valid;
+  const errors = [];
 
-  if (!firstname || !lastname || !email || !password) {
-    valid = false;
-  }
-  if (firstname.trim() === lastname.trim()) {
-    valid = false;
-  } else {
-    valid = true;
+  if (!firstname || !lastname || !email || !password || !passwordRepeat) {
+    errors.push({ message: 'Please fill up all fields' });
   }
 
-  if (!valid) {
-    return res.status(400).json({
-      status: 'fail',
-      message: 'Missing firstmane, lastname, email or password property',
+  if (password.length < 8) {
+    errors.push({ message: 'Your password should contain at least 8 characters' });
+  }
+
+  if (password !== passwordRepeat) {
+    errors.push({ message: 'Passwords should be the same. Please try again' });
+  }
+
+  if (errors.length > 0) {
+    res.render('new-user-form', {
+      errors,
+      isLoggedIn: true,
     });
   }
+
+  // if (firstname.trim() === lastname.trim()) {
+  //   valid = false;
+  // } else {
+  //   valid = true;
+  // }
+
+  // if (!valid) {
+  //   return res.status(400).json({
+  //     status: 'fail',
+  //     message: 'Missing firstmane, lastname, email or password property',
+  //   });
+  // }
   next();
 };
 
@@ -106,7 +123,6 @@ exports.createUser = (req, res) => {
 };
 
 exports.getForm = (req, res) => {
-  // const users = User.getAll();
   res.status(200).render('new-user-form', {
     pageTitle: 'Add New User',
     date: new Date().toLocaleDateString('en', {
@@ -114,8 +130,7 @@ exports.getForm = (req, res) => {
       month: 'long',
       day: 'numeric',
     }),
-    // allUsers: users,
     path: '/users/new',
-    isLoggedIn: req.isLoggedIn
+    isLoggedIn: true,
   });
 };

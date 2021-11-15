@@ -1,3 +1,24 @@
+.errors {
+  margin-bottom: 20px;
+}
+
+.error-msg {
+  position: relative;
+  color: #FFBC67;
+  padding-left: 25px;
+  margin-bottom: 5px;
+}
+
+.error-msg::before {
+  content: "";
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  left: 0;
+  background: url('../img/exclamation-mark.svg') center no-repeat;
+  background-size: 1rem 1rem;
+}
+
 .label {
   display: block;
   margin-bottom: 8px;

@@ -8,7 +8,7 @@ router.param('id', usersController.checkID);
 router
   .route('/')
   .get(usersController.getAllUsers)
-  .post(usersController.checkBody, usersController.createUser);
+  .post(usersController.validateNewUser, usersController.createUser);
 
 router.route('/new').get(usersController.getForm);
 

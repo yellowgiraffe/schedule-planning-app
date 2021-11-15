@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
+const SequalizeStore = require('connect-session-sequelize')(session.Store);
 
 const rootDir = require('./utils/path');
 
@@ -12,6 +13,9 @@ const { schedules } = require('./data');
 const User = require('./models/User');
 
 const app = express();
+// const store = new SequalizeStorage({
+
+// })
 
 app.set('view engine', 'pug');
 app.set('views', 'src/views');

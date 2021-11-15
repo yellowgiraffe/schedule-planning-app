@@ -8,6 +8,10 @@ block content
     section.section.main-section
       if isLoggedIn
         h2.section-title Add new user
+        if typeof errors !== "undefined"
+          ul.errors
+            each error in errors
+              li.error-msg #{error.message}
         form.users-form.form(action="/users" method="POST")
           label.label(for="firstname") First name
           input.input#user-firstname(type="text" name="firstname" required)
@@ -17,7 +21,9 @@ block content
           input.input#user-email(type="email" name="email" required)
           label.label(for="password") Password
           input.input#user-password(type="password" name="password" required)
+          label.label(for="passwordRepeat") Confirm your password
+          input.input#user-password-repeat(type="password" name="passwordRepeat" required)
           input.input(type="submit")
       else
-        h2.section-title Please login to add new schedule
+        h2.section-title Please login to add new user
           
