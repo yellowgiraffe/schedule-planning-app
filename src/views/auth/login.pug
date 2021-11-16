@@ -7,6 +7,10 @@ block content
   main.main
     section.section.main-section
       h2.section-title Log in
+      if typeof errors !== "undefined"
+          ul.errors
+            each error in errors
+              li.error-msg #{error.message}
       form.login.form(action="/login" method="POST")
         label.label(for="email") Enter your email address 
         input#emal.input(type="email" name="email" required)

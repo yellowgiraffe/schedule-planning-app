@@ -1,18 +1,94 @@
-exports.getLogin = (req, res) => {
+const bcrypt = require('bcrypt');
+const User = require('../models/User');
+
+exports.validateNewUser = (req, res, next) => {
+  const {
+    firstname,
+    lastname,
+    email,
+    password,
+    passwordRepeat
+  } = req.body;
+
+  const errors = [];
+
+  if (!firstname || !lastname || !email || !password || !passwordRepeat) {
+    errors.push({ message: 'Please fill up all fields' });
+  }
+
+  if (password.length < 8) {
+    errors.push({ message: 'Your password should contain at least 8 characters' });
+  }
+
+  if (password !== passwordRepeat) {
+    errors.push({ message: 'Passwords should be the same. Please try again' });
+  }
+
+  User.findAll({ where: { email: req.body.email } })
+    .then((emails) => {
+      if (emails.length > 0) {
+        errors.push({ message: 'User with this email already exists' });
+      }
+
+      if (errors.length > 0) {
+        res.render('new-user-form', {
+          errors,
+          isLoggedIn: true,
+        });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  next();
+};
+
+exports.getLoginPage = (req, res) => {
   res.status(200).render('auth/login', {
     pageTitle: 'Log In',
     path: '/login'
   });
 };
 
-exports.postLogin = (req, res) => {
-  req.session.isLoggedIn = true;
-  res.status(200).redirect('/');
+exports.login = (req, res) => {
+  User.findAll({ where: { email: req.body.email } })
+    .then((users) => {
+      if (users.length !== 0) {
+        return bcrypt.compare(req.body.password, users[0].password);
+      }
+      return false;
+    })
+    .then((isEqual) => {
+      if (isEqual) {
+        res.status(200).redirect('/');
+      } else {
+        res.status(401).render('auth/login', {
+          errors: [{ message: 'Email not found or password incorrect.' }],
+        });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
-exports.getSignup = (req, res) => {
+exports.getSignupPage = (req, res) => {
   res.status(200).render('auth/signup', {
     pageTitle: 'Sign Up',
     path: '/signup'
+  });
+};
+
+exports.createUser = (req, res) => {
+  User.create({
+    firstname: req.body.firstname.trim(),
+    lastname: req.body.lastname.trim(),
+    email: req.body.email,
+    password: bcrypt.hashSync(req.body.password, 10),
+  }).then(() => {
+    res.status(201).redirect('/users');
+  }).catch((err) => {
+    console.log(err);
   });
 };

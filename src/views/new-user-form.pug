@@ -6,7 +6,7 @@ block styles
 block content
   main.main
     section.section.main-section
-      if isLoggedIn
+      if isLoggedIn && isAdmin
         h2.section-title Add new user
         if typeof errors !== "undefined"
           ul.errors
@@ -25,5 +25,5 @@ block content
           input.input#user-password-repeat(type="password" name="passwordRepeat" required)
           input.input(type="submit")
       else
-        h2.section-title Please login to add new user
+        h2.section-title This functionality is available only for admins
           

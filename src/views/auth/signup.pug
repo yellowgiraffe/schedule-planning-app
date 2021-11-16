@@ -7,11 +7,19 @@ block content
   main.main
     section.section.main-section
       h2.section-title Sign up
-      if #{errors} 
+      if typeof errors !== "undefined"
+          ul.errors
+            each error in errors
+              li.error-msg #{error.message}
       form.users-form.form(action="/signup" method="POST")
-        label.label(for="email") Enter your email address 
-        input.input(type="email" name="email" required)
+        label.label(for="firstname") First name
+        input.input#user-firstname(type="text" name="firstname" required)
+        label.label(for="lastname") Last name
+        input.input#user-lastname(type="text" name="lastname" required)
+        label.label(for="email") Email
+        input.input#user-email(type="email" name="email" required)
         label.label(for="password") Password
-        input.input(type="password" name="password" required)
-        input.input(type="submit" value="Sign up")
-      else
+        input.input#user-password(type="password" name="password" required)
+        label.label(for="passwordRepeat") Confirm your password
+        input.input#user-password-repeat(type="password" name="passwordRepeat" required)
+        input.input(type="submit" value="Sign Up")
