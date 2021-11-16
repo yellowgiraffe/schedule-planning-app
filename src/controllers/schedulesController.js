@@ -16,10 +16,12 @@ exports.getAllSchedules = (req, res) => {
 };
 
 exports.createSchedule = (req, res) => {
-  req.user.createSchedule({
+  console.log(req.session.user.id);
+  console.log(req.session.user);
+  Schedule.create({
     startAt: req.body.startAt,
     endAt: req.body.endAt,
-    userId: req.user.id
+    userId: req.session.user.id
   }).then(() => {
     res.status(201).redirect('schedules');
   }).catch((err) => {
@@ -34,6 +36,7 @@ exports.getForm = (req, res) => {
         pageTitle: 'Add New Schedule',
         allUsers: users,
         path: '/schedules/new',
+        isLoggedIn: req.session.isLoggedIn,
       });
     })
     .catch((err) => {

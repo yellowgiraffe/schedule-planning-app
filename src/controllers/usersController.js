@@ -99,7 +99,9 @@ exports.createUser = (req, res) => {
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 10),
   }).then(() => {
-    res.status(201).redirect('/users');
+    res.status(201).redirect('/users', {
+      isLoggedIn: req.session.isLoggedIn
+    });
   }).catch((err) => {
     console.log(err);
   });
@@ -109,6 +111,7 @@ exports.getForm = (req, res) => {
   res.status(200).render('new-user-form', {
     pageTitle: 'Add New User',
     path: '/users/new',
-    isLoggedIn: true,
+    isLoggedIn: req.session.isLoggedIn,
+    isAdmin: true
   });
 };

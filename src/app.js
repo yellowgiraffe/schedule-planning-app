@@ -4,18 +4,16 @@ const session = require('express-session');
 const SequalizeStore = require('connect-session-sequelize')(session.Store);
 
 const rootDir = require('./utils/path');
+const sequelize = require('./utils/database');
 
 const usersRouter = require('./routes/usersRouter');
 const schedulesRouter = require('./routes/schedulesRouter');
 const authRouter = require('./routes/authRouter');
 const { users } = require('./data');
 const { schedules } = require('./data');
-const User = require('./models/User');
+// const User = require('./models/User');
 
 const app = express();
-// const store = new SequalizeStorage({
-
-// })
 
 app.set('view engine', 'pug');
 app.set('views', 'src/views');
@@ -26,19 +24,20 @@ app.use(express.static(path.join(rootDir, 'public')));
 app.use(session({
   secret: 'my secret',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  store: new SequalizeStore({ db: sequelize }),
 }));
 
-app.use((req, res, next) => {
-  User.findByPk(1)
-    .then((user) => {
-      req.user = user;
-      next();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+// app.use((req, res, next) => {
+//   User.findByPk(1)
+//     .then((user) => {
+//       req.user = user;
+//       next();
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// });
 
 app.get('/', (req, res) => {
   res.status(200).render('home', {

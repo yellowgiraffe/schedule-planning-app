@@ -52,15 +52,17 @@ exports.getLoginPage = (req, res) => {
 };
 
 exports.login = (req, res) => {
-  User.findAll({ where: { email: req.body.email } })
-    .then((users) => {
-      if (users.length !== 0) {
-        return bcrypt.compare(req.body.password, users[0].password);
+  User.findOne({ where: { email: req.body.email } })
+    .then((user) => {
+      if (user) {
+        req.session.user = user;
+        return bcrypt.compare(req.body.password, user.password);
       }
       return false;
     })
     .then((isEqual) => {
       if (isEqual) {
+        req.session.isLoggedIn = true;
         res.status(200).redirect('/');
       } else {
         res.status(401).render('auth/login', {
@@ -86,8 +88,9 @@ exports.createUser = (req, res) => {
     lastname: req.body.lastname.trim(),
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 10),
-  }).then(() => {
-    res.status(201).redirect('/users');
+  }).then((user) => {
+    const { id } = user;
+    res.status(201).redirect(`/users/${id}`);
   }).catch((err) => {
     console.log(err);
   });
