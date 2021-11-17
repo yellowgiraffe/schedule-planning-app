@@ -1,5 +1,6 @@
 const express = require('express');
 const schedulesController = require('../controllers/schedulesController');
+const checkAuth = require('../middleware/checkAuth');
 
 const router = express.Router();
 
@@ -8,6 +9,6 @@ router
   .get(schedulesController.getAllSchedules)
   .post(schedulesController.createSchedule);
 
-router.route('/new').get(schedulesController.getForm);
+router.route('/new').get(checkAuth, schedulesController.getForm);
 
 module.exports = router;

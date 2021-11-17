@@ -16,8 +16,6 @@ exports.getAllSchedules = (req, res) => {
 };
 
 exports.createSchedule = (req, res) => {
-  console.log(req.session.user.id);
-  console.log(req.session.user);
   Schedule.create({
     startAt: req.body.startAt,
     endAt: req.body.endAt,
@@ -30,6 +28,9 @@ exports.createSchedule = (req, res) => {
 };
 
 exports.getForm = (req, res) => {
+  if (!req.session.isLoggedIn) {
+    res.status(403).redirect('/login');
+  }
   User.findAll()
     .then((users) => {
       res.status(200).render('new-schedule-form', {
