@@ -24,9 +24,9 @@ exports.validateNewUser = (req, res, next) => {
     errors.push({ message: 'Passwords should be the same. Please try again' });
   }
 
-  User.findAll({ where: { email: req.body.email } })
-    .then((emails) => {
-      if (emails.length > 0) {
+  User.findOne({ where: { email: req.body.email } })
+    .then((user) => {
+      if (user) {
         errors.push({ message: 'User with this email already exists' });
       }
 
@@ -94,15 +94,16 @@ exports.getSignupPage = (req, res) => {
 };
 
 exports.createUser = (req, res) => {
-  User.create({
-    firstname: req.body.firstname.trim(),
-    lastname: req.body.lastname.trim(),
-    email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 10),
-  }).then((user) => {
-    const { id } = user;
-    res.status(201).redirect(`/users/${id}`);
-  }).catch((err) => {
-    console.log(err);
-  });
+  bcrypt.hash(req.body.password, 10)
+    .then((hashedPassword) => User.create({
+      firstname: req.body.firstname.trim(),
+      lastname: req.body.lastname.trim(),
+      email: req.body.email,
+      password: hashedPassword,
+    }))
+    .then(() => {
+      res.status(201).redirect('/login');
+    }).catch((err) => {
+      console.log(err);
+    });
 };
