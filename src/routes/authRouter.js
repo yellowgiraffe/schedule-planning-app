@@ -9,6 +9,10 @@ router
   .post(authController.login);
 
 router
+  .route('/logout')
+  .post(authController.logout);
+
+router
   .route('/signup')
   .get(authController.getSignupPage)
   .post(authController.validateNewUser, authController.createUser);

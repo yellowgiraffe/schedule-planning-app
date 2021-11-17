@@ -45,6 +45,8 @@ app.get('/', (req, res) => {
     path: '/',
     allUsers: users,
     allSchedules: schedules,
+    isLoggedIn: req.session.isLoggedIn,
+    // user: req.session.user
   });
 });
 

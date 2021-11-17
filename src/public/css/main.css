@@ -79,7 +79,6 @@ body {
   align-items: center;
   height: 100px;
   margin: 20px 0;
-  font-size: 1.3rem;
   border-radius: 6px;
   background-color: #3a4264;
 }
@@ -124,6 +123,7 @@ body {
 
 .header__nav-list {
   display: flex;
+  font-size: 1.3rem;
 }
 
 .header__nav-link {
@@ -159,7 +159,18 @@ body {
   border-bottom-left-radius: 6px;
 }
 
-.header__btns a {
+.header__btns {
+  display: flex;
+  align-items: baseline;
+}
+
+.header__welcome-msg {
+  display: block;
+  margin-right: 25px;
+}
+
+.header__btn {
+  display: block;
   margin-right: 25px;
   background-color: #18a7aa;
   color: #fff;
@@ -170,7 +181,7 @@ body {
   transition: .2s;
 }
 
-.header__btns a:hover {
+.header__btn:hover {
   background-color: #2ebca7;
 }
 

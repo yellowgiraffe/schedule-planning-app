@@ -56,6 +56,7 @@ exports.login = (req, res) => {
     .then((user) => {
       if (user) {
         req.session.user = user;
+        req.session.save();
         return bcrypt.compare(req.body.password, user.password);
       }
       return false;
@@ -63,7 +64,10 @@ exports.login = (req, res) => {
     .then((isEqual) => {
       if (isEqual) {
         req.session.isLoggedIn = true;
-        res.status(200).redirect('/');
+        req.session.save((err) => {
+          console.log(err);
+          res.status(200).redirect('/');
+        });
       } else {
         res.status(401).render('auth/login', {
           errors: [{ message: 'Email not found or password incorrect.' }],
@@ -73,6 +77,13 @@ exports.login = (req, res) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+exports.logout = (req, res) => {
+  req.session.destroy((err) => {
+    console.log(err);
+    res.status(200).redirect('/');
+  });
 };
 
 exports.getSignupPage = (req, res) => {

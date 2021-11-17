@@ -22,8 +22,13 @@ html(lang="en")
             li.header__nav-item(class=(path === '/schedules/new' ? 'active-nav ' : ''))
               a.header__nav-link(href="/schedules/new") Add schedule
         .header__btns
-          a(href="/login")  Log In 
-          a(href="/signup")  Sign Up
+          if isLoggedIn
+            span.header__welcome-msg Hello!
+            form(action="/logout", method="POST") 
+              button.header__btn(type="submit") Log out
+          else
+            a.header__btn(href="/login") Log In
+            a.header__btn(href="/signup") Sign Up
       .wrapper
         aside.sidebar
           section.section
