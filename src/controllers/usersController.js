@@ -43,10 +43,7 @@ exports.validateNewUser = (req, res, next) => {
       }
 
       if (errors.length > 0) {
-        res.render('new-user-form', {
-          errors,
-          isLoggedIn: true,
-        });
+        res.render('new-user-form', { errors });
       }
     })
     .catch((err) => {
@@ -99,9 +96,7 @@ exports.createUser = (req, res) => {
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 10),
   }).then(() => {
-    res.status(201).redirect('/users', {
-      isLoggedIn: req.session.isLoggedIn
-    });
+    res.status(201).redirect('/users');
   }).catch((err) => {
     console.log(err);
   });
@@ -111,7 +106,6 @@ exports.getForm = (req, res) => {
   res.status(200).render('new-user-form', {
     pageTitle: 'Add New User',
     path: '/users/new',
-    isLoggedIn: req.session.isLoggedIn,
     isAdmin: true
   });
 };

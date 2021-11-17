@@ -37,7 +37,6 @@ exports.getForm = (req, res) => {
         pageTitle: 'Add New Schedule',
         allUsers: users,
         path: '/schedules/new',
-        isLoggedIn: req.session.isLoggedIn,
       });
     })
     .catch((err) => {

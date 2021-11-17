@@ -57,7 +57,6 @@ app.get('/', (req, res) => {
     path: '/',
     allUsers: users,
     allSchedules: schedules,
-    // user: req.session.user
   });
 });
 

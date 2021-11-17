@@ -1,5 +1,14 @@
 const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
+const transport = require('nodemailer-sendgrid-transport');
+
 const User = require('../models/User');
+
+const transporter = nodemailer.createTransport(transport({
+  auth: {
+    api_key: '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'
+  }
+}));
 
 exports.validateNewUser = (req, res, next) => {
   const {
@@ -31,10 +40,7 @@ exports.validateNewUser = (req, res, next) => {
       }
 
       if (errors.length > 0) {
-        res.render('new-user-form', {
-          errors,
-          isLoggedIn: true,
-        });
+        res.render('new-user-form', { errors });
       }
     })
     .catch((err) => {
@@ -64,10 +70,7 @@ exports.login = (req, res) => {
     .then((isEqual) => {
       if (isEqual) {
         req.session.isLoggedIn = true;
-        req.session.save((err) => {
-          console.log(err);
-          res.status(200).redirect('/');
-        });
+        res.status(200).redirect('/');
       } else {
         res.status(401).render('auth/login', {
           errors: [{ message: 'Email not found or password incorrect.' }],
@@ -99,11 +102,20 @@ exports.createUser = (req, res) => {
       firstname: req.body.firstname.trim(),
       lastname: req.body.lastname.trim(),
       email: req.body.email,
-      password: hashedPassword,
+      password: hashedPassword
     }))
-    .then(() => {
-      res.status(201).redirect('/login');
-    }).catch((err) => {
+    .then((user) => {
+      if (req.body.sendEmail === 'on') {
+        res.status(201).redirect('/login');
+        return transporter.sendMail({
+          to: user.email,
+          from: 'ol.miroch@gmail.com',
+          subject: 'Welcome to our schedule app',
+          html: '<h1>The registration is completed. You can login using your email and password'
+        });
+      }
+    })
+    .catch((err) => {
       console.log(err);
     });
 };
