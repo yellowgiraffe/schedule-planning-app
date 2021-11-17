@@ -1,4 +1,5 @@
 const path = require('path');
+const csrf = require('csurf');
 const express = require('express');
 const session = require('express-session');
 const SequalizeStore = require('connect-session-sequelize')(session.Store);
@@ -13,6 +14,7 @@ const { users } = require('./data');
 const { schedules } = require('./data');
 // const User = require('./models/User');
 
+const protectionToken = csrf();
 const app = express();
 
 app.set('view engine', 'pug');
@@ -28,6 +30,8 @@ app.use(session({
   store: new SequalizeStore({ db: sequelize }),
 }));
 
+app.use(protectionToken);
+
 // app.use((req, res, next) => {
 //   User.findByPk(1)
 //     .then((user) => {
@@ -39,13 +43,20 @@ app.use(session({
 //     });
 // });
 
+app.use((req, res, next) => {
+  res.locals.isLoggedIn = req.session.isLoggedIn;
+  res.locals.csrfToken = req.csrfToken();
+  res.locals.user = req.session.user;
+
+  next();
+});
+
 app.get('/', (req, res) => {
   res.status(200).render('home', {
     pageTitle: 'Schedules website',
     path: '/',
     allUsers: users,
     allSchedules: schedules,
-    isLoggedIn: req.session.isLoggedIn,
     // user: req.session.user
   });
 });

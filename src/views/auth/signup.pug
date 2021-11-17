@@ -12,6 +12,8 @@ block content
             each error in errors
               li.error-msg #{error.message}
       form.users-form.form(action="/signup" method="POST")
+        -var csrfToken = csrfToken
+        input(type="hidden" name="_csrf" value=csrfToken)
         label.label(for="firstname") First name
         input.input#user-firstname(type="text" name="firstname" required)
         label.label(for="lastname") Last name

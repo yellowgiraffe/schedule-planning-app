@@ -9,6 +9,8 @@ block content
       if isLoggedIn
         h2.section-title Add schedule
         form.schedules-form(action="/schedules" method="POST")
+          -var csrfToken = csrfToken
+          input(type="hidden" name="_csrf" value=csrfToken)
           //- label.label(for="userID") Selec user
           //- select.select#userID(name="userID") 
           //-   if allUsers.length > 0

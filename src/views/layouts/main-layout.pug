@@ -23,8 +23,10 @@ html(lang="en")
               a.header__nav-link(href="/schedules/new") Add schedule
         .header__btns
           if isLoggedIn
-            span.header__welcome-msg Hello!
-            form(action="/logout", method="POST") 
+            span.header__welcome-msg Hello #{user.firstname}!
+            form(action="/logout", method="POST")
+              -var csrfToken = csrfToken
+              input(type="hidden" name="_csrf" value=csrfToken) 
               button.header__btn(type="submit") Log out
           else
             a.header__btn(href="/login") Log In
