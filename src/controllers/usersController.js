@@ -13,45 +13,45 @@ exports.checkID = (req, res, next) => {
   next();
 };
 
-exports.validateNewUser = (req, res, next) => {
-  const {
-    firstname,
-    lastname,
-    email,
-    password,
-    passwordRepeat
-  } = req.body;
+// exports.validateNewUser = (req, res, next) => {
+//   const {
+//     firstname,
+//     lastname,
+//     email,
+//     password,
+//     passwordRepeat
+//   } = req.body;
 
-  const errors = [];
+//   const errors = [];
 
-  if (!firstname || !lastname || !email || !password || !passwordRepeat) {
-    errors.push({ message: 'Please fill up all fields' });
-  }
+//   if (!firstname || !lastname || !email || !password || !passwordRepeat) {
+//     errors.push({ message: 'Please fill up all fields' });
+//   }
 
-  if (password.length < 8) {
-    errors.push({ message: 'Your password should contain at least 8 characters' });
-  }
+//   if (password.length < 8) {
+//     errors.push({ message: 'Your password should contain at least 8 characters' });
+//   }
 
-  if (password !== passwordRepeat) {
-    errors.push({ message: 'Passwords should be the same. Please try again' });
-  }
+//   if (password !== passwordRepeat) {
+//     errors.push({ message: 'Passwords should be the same. Please try again' });
+//   }
 
-  User.findAll({ where: { email: req.body.email } })
-    .then((emails) => {
-      if (emails.length > 0) {
-        errors.push({ message: 'User with this email already exists' });
-      }
+//   User.findAll({ where: { email: req.body.email } })
+//     .then((emails) => {
+//       if (emails.length > 0) {
+//         errors.push({ message: 'User with this email already exists' });
+//       }
 
-      if (errors.length > 0) {
-        res.render('new-user-form', { errors });
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+//       if (errors.length > 0) {
+//         res.render('new-user-form', { errors });
+//       }
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
 
-  next();
-};
+//   next();
+// };
 
 exports.getAllUsers = (req, res) => {
   User.findAll()

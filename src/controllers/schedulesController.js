@@ -1,8 +1,18 @@
 const Schedule = require('../models/Schedule');
 const User = require('../models/User');
 
+exports.checkConflicts = (req, res, next) => {
+  // Schedule.findOne({ where: day = req.body.day })
+  //   .then()
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+
+  next();
+};
+
 exports.getAllSchedules = (req, res) => {
-  Schedule.findAll()
+  Schedule.findAll({ include: [{ model: User }] })
     .then((schedules) => {
       res.status(200).render('schedules', {
         pageTitle: 'Schedules',
@@ -17,6 +27,7 @@ exports.getAllSchedules = (req, res) => {
 
 exports.createSchedule = (req, res) => {
   Schedule.create({
+    day: req.body.day,
     startAt: req.body.startAt,
     endAt: req.body.endAt,
     userId: req.session.user.id

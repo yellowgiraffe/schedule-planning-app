@@ -1,13 +1,29 @@
+.schedules__list,
 .results {
   margin-bottom: 20px;
 }
 
-.schedules__item {
+.schedules__title-row {
+  text-transform: uppercase;
+}
+
+.schedules__item,
+.schedules__title-row {
   display: flex;
-  flex-direction: column;
-  /* align-items: center; */
-  /* justify-content: space-between; */
+  align-items: center;
+  justify-content: space-between;
   margin: 10px 0;
   padding: 10px 0;
   border-bottom: 1px solid #51597b;
+}
+
+.schedule__user-name {
+  font-weight: 400;
+}
+
+.schedule__user-name,
+.schedules__day,
+.schedules__start,
+.schedules__end {
+  width: 20%;
 }

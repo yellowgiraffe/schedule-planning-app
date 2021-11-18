@@ -8,12 +8,16 @@ const Schedule = sequelize.define('schedule', {
     allowNull: false,
     primaryKey: true,
   },
+  day: {
+    type: Sequelize.DATEONLY,
+    allowNull: false
+  },
   startAt: {
-    type: Sequelize.DATE,
+    type: Sequelize.TIME,
     allowNull: false
   },
   endAt: {
-    type: Sequelize.DATE,
+    type: Sequelize.TIME,
     allowNull: false
   }
 });

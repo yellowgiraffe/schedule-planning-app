@@ -1,0 +1,11 @@
+extend layouts/main-layout.pug
+  
+block content
+  main.main
+    section.section.main-section
+      span.user-stats__num #{allUsers.length}
+      h2.section-title users choose our service
+    section.section.main-section
+      span.schedules-stats__num #{allSchedules.length}
+      h2.section-title schedules successfully planed
+      

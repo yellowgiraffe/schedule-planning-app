@@ -8,27 +8,23 @@ block content
     section.section.main-section
       h2.section-title Schedules list
       if allSchedules.length > 0
-        p.results Results: #{allSchedules.length}
         ul.schedules__list
+          li.schedules__title-row
+            h3.schedule__user-name User name
+            h3.schedules__day Day
+            h3.schedules__start Start time
+            h3.schedules__end End time
           each schedule in allSchedules
             li.schedules__item
               -function day(date) {
                 -var date = new Date(date);
-                -var day = date.toLocaleDateString('en', { weekday: 'long', month: 'long', day: 'numeric' });
+                -var day = date.toLocaleDateString('en-GB', { month: 'long', day: 'numeric' });
                 -return day;
               -}
-              -function time(date) {
-                -var date = new Date(date);
-                -var time = date.toLocaleTimeString('en-GB', {hour: '2-digit', minute:'2-digit'});
-                -return time;
-              -}
-              .schedules__start
-                div Start at:
-                .start-day #{day(schedule.startAt)} 
-                .start-time #{time(schedule.startAt)}
-              .schedules__end
-                div End at:
-                .end-day #{day(schedule.endAt)} 
-                .end-time #{time(schedule.endAt)}
+              h3.schedule__user-name #{schedule.user.firstname} #{schedule.user.lastname}
+              .schedules__day #{day(schedule.day)}
+              .schedules__start #{schedule.startAt}
+              .schedules__end #{schedule.endAt}
+        p.results Results: #{allSchedules.length}
       else
         h2.section-title No schedules

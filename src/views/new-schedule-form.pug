@@ -18,10 +18,12 @@ block content
           //-       option(value=user.id) #{user.firstname} #{user.lastname}
           //-   else
           //-     option(value=index) No users in database
+          label.label(for="day") Select starting date and time
+          input.input#day(type="date" name="day")
           label.label(for="startAt") Select starting date and time
-          input.input#startAt(type="datetime-local" name="startAt")
+          input.input#startAt(type="time" name="startAt")
           label.label(for="endAt") Select ending date and time
-          input.input#endAt(type="datetime-local" name="endAt")
+          input.input#endAt(type="time" name="endAt")
           input.input(type="submit" value="Submit")
       else
         h2.section-title Please login to add new schedule
