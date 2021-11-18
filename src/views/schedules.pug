@@ -10,7 +10,7 @@ block content
       if allSchedules.length > 0
         ul.schedules__list
           li.schedules__title-row
-            h3.schedule__user-name User name
+            h3.schedules__user-name User name
             h3.schedules__day Day
             h3.schedules__start Start time
             h3.schedules__end End time
@@ -21,7 +21,7 @@ block content
                 -var day = date.toLocaleDateString('en-GB', { month: 'long', day: 'numeric' });
                 -return day;
               -}
-              h3.schedule__user-name #{schedule.user.firstname} #{schedule.user.lastname}
+              h3.schedules__user-name #{schedule.user.firstname} #{schedule.user.lastname}
               .schedules__day #{day(schedule.day)}
               .schedules__start #{schedule.startAt}
               .schedules__end #{schedule.endAt}

@@ -25,6 +25,20 @@ exports.getAllSchedules = (req, res) => {
     });
 };
 
+exports.getMySchedules = (req, res) => {
+  Schedule.findAll({ where: { userId: req.session.user.id } })
+    .then((schedules) => {
+      res.status(200).render('my-schedules', {
+        pageTitle: 'My schedules',
+        path: '/schedules/my-schedules',
+        allSchedules: schedules,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 exports.createSchedule = (req, res) => {
   Schedule.create({
     day: req.body.day,

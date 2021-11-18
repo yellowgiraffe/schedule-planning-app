@@ -1,0 +1,33 @@
+extend layouts/main-layout.pug
+
+block styles
+  link(rel="stylesheet", href="/css/schedules.css")
+  
+block content
+  main.main
+    section.section.main-section
+      h2.section-title My schedules
+      if allSchedules.length > 0
+        ul.schedules__list
+          //- li.schedules__title-row
+          //-   .schedules__info 
+          //-     h3.schedules__day Day
+          //-     h3.schedules__start Start time
+          //-     h3.schedules__end End time
+          each schedule in allSchedules
+            li.schedules__item
+              .schedules__info
+                -function day(date) {
+                  -var date = new Date(date);
+                  -var day = date.toLocaleDateString('en-GB', { month: 'long', day: 'numeric' });
+                  -return day;
+                -}
+                .schedules__day #{day(schedule.day)}
+                .schedules__start #{schedule.startAt}
+                .schedules__end #{schedule.endAt}
+              .schedules__control-btns
+                a.schedules__btn(href="#") Edit
+                a.schedules__btn(href="#") Delete
+        p.results Results: #{allSchedules.length}
+      else
+        h2.section-title No schedules

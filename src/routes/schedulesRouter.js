@@ -11,4 +11,6 @@ router
 
 router.route('/new').get(checkAuth, schedulesController.getForm);
 
+router.route('/my-schedules').get(schedulesController.getMySchedules);
+
 module.exports = router;

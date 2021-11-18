@@ -3,6 +3,12 @@
   margin-bottom: 20px;
 }
 
+.schedule__info,
+.schedules__control-bts {
+  display: flex;
+  align-items: center;
+}
+
 .schedules__title-row {
   text-transform: uppercase;
 }
@@ -12,18 +18,42 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 10px 0;
-  padding: 10px 0;
+  padding: 15px 0;
   border-bottom: 1px solid #51597b;
 }
 
-.schedule__user-name {
+.schedules__user-name {
   font-weight: 400;
 }
 
-.schedule__user-name,
+.schedules__user-name,
 .schedules__day,
 .schedules__start,
 .schedules__end {
   width: 20%;
+}
+
+.schedules__info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.schedules__btn {
+  background-color: #51597b;
+  margin-right: 20px;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: .9rem;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.schedules__btn:last-child {
+  margin-right: 0;
+}
+
+.schedules__btn:hover {
+  background-color: #3468af;
 }
