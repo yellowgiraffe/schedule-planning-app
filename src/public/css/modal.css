@@ -1,0 +1,61 @@
+.modal {
+  display: none;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  color: #fff;
+  background-color:rgba(28, 35, 66, 0.9);
+  transition: .2s;
+}
+
+.show-modal {
+  display: flex;
+}
+
+.modal__container {
+  margin: 0 auto;
+  max-width: 30%;
+  height: fit-content;
+  padding: 40px 70px;
+  background-color: #3a4264;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.modal__title {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.3rem;
+  margin-bottom: 20px;
+}
+
+
+.modal__btn {
+  padding: 5px 15px;
+  margin: 0 15px;
+  font-size: .9rem;
+  font-weight: 300;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.cancel {
+  background-color: #51597b;
+}
+
+.cancel:hover {
+  background-color: #869baf;
+}
+
+.delete {
+  background-color: #ce5f4c;
+}
+
+.delete:hover {
+  background-color: #f0725c;
+}

@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const Schedule = require('../models/Schedule');
 
@@ -78,6 +78,18 @@ exports.getUser = (req, res) => {
     });
 };
 
+exports.myProfile = (req, res) => {
+  // const { id } = req.params;
+  // User.findByPk(id)
+  //   .then((user) => {
+  //     res.status(200).render('user', {
+  //       user,
+  //     });
+  //   }).catch((err) => {
+  //     console.log(err);
+  //   });
+};
+
 exports.getScheduleByUser = (req, res) => {
   const { id } = req.params;
   Schedule.findAll({ where: { userId: id } })
@@ -89,18 +101,18 @@ exports.getScheduleByUser = (req, res) => {
     });
 };
 
-exports.createUser = (req, res) => {
-  User.create({
-    firstname: req.body.firstname.trim(),
-    lastname: req.body.lastname.trim(),
-    email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 10),
-  }).then(() => {
-    res.status(201).redirect('/users');
-  }).catch((err) => {
-    console.log(err);
-  });
-};
+// exports.createUser = (req, res) => {
+//   User.create({
+//     firstname: req.body.firstname.trim(),
+//     lastname: req.body.lastname.trim(),
+//     email: req.body.email,
+//     password: bcrypt.hashSync(req.body.password, 10),
+//   }).then(() => {
+//     res.status(201).redirect('/');
+//   }).catch((err) => {
+//     console.log(err);
+//   });
+// };
 
 exports.getForm = (req, res) => {
   res.status(200).render('new-user-form', {

@@ -2,6 +2,7 @@ extend layouts/main-layout.pug
 
 block styles
   link(rel="stylesheet", href="/css/schedules.css")
+  link(rel="stylesheet", href="/css/modal.css")
   
 block content
   main.main
@@ -16,6 +17,15 @@ block content
           //-     h3.schedules__end End time
           each schedule in allSchedules
             li.schedules__item
+              .modal
+                .modal__container
+                  h4.modal__title Are you sure you want to delete this schedule?
+                  p.modal__desc
+                  form(action="/schedules/my" method="POST")
+                    input(type="hidden" name="_csrf" value=csrfToken)
+                    input#id(type="hidden" name="id" value=schedule.id)
+                    button#close-modal.modal__btn.cancel(type="button") Cancel
+                    button#delete-schedule.modal__btn.delete(type="submit") Delete
               .schedules__info
                 -function day(date) {
                   -var date = new Date(date);
@@ -26,8 +36,18 @@ block content
                 .schedules__start #{schedule.startAt}
                 .schedules__end #{schedule.endAt}
               .schedules__control-btns
-                a.schedules__btn(href="#") Edit
-                a.schedules__btn(href="#") Delete
+                a.schedules__btn(href="/schedules/my/"+schedule.id) Edit
+                button.schedules__btn(type="button") Delete                
         p.results Results: #{allSchedules.length}
+        //- .modal
+        //-   .modal__container
+        //-     h4.modal__title
+        //-     p.modal__desc
+        //-     form(action="/schedules/my" method="POST")
+        //-       input(type="hidden" name="_csrf" value=csrfToken)
+        //-       input#id(type="hidden" name="id" value=schedule.id)
+        //-       input#delete-schedule.schedules__btn(type="submit" value="Delete")
       else
         h2.section-title No schedules
+block js
+  script(src="/modal.js")

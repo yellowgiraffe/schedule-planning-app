@@ -11,6 +11,14 @@ router
 
 router.route('/new').get(checkAuth, schedulesController.getForm);
 
-router.route('/my-schedules').get(schedulesController.getMySchedules);
+router
+  .route('/my')
+  .get(checkAuth, schedulesController.getMySchedules)
+  .post(schedulesController.foo, schedulesController.deleteSchedule);
+
+router
+  .route('/my/:id')
+  .get(checkAuth, schedulesController.editForm)
+  .post(schedulesController.updateSchedule);
 
 module.exports = router;

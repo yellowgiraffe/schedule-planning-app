@@ -114,6 +114,7 @@ exports.createUser = (req, res) => {
           html: '<h1>The registration is completed. You can login using your email and password'
         });
       }
+      res.status(201).redirect('/login');
     })
     .catch((err) => {
       console.log(err);

@@ -30,16 +30,26 @@
 .schedules__day,
 .schedules__start,
 .schedules__end {
-  width: 20%;
+  width: 30%;
 }
 
 .schedules__info {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin-right: 30px;
+}
+
+.schedules__control-btns {
+  display: flex;
 }
 
 .schedules__btn {
+  display: block;
+}
+
+.schedules__btn {
+  font-weight: 300;
   background-color: #51597b;
   margin-right: 20px;
   color: #fff;

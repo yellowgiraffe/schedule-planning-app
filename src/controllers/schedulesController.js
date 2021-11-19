@@ -30,7 +30,7 @@ exports.getMySchedules = (req, res) => {
     .then((schedules) => {
       res.status(200).render('my-schedules', {
         pageTitle: 'My schedules',
-        path: '/schedules/my-schedules',
+        path: '/schedules/my',
         allSchedules: schedules,
       });
     })
@@ -52,10 +52,53 @@ exports.createSchedule = (req, res) => {
   });
 };
 
+exports.editForm = (req, res) => {
+  Schedule.findByPk(req.params.id)
+    .then((schedule) => {
+      res.status(200).render('edit-schedule', {
+        pageTitle: 'Edit schedule',
+        schedule,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.updateSchedule = (req, res) => {
+  Schedule.update({
+    day: req.body.day,
+    startAt: req.body.startAt,
+    endAt: req.body.endAt,
+  }, {
+    where: {
+      id: req.body.id
+    }
+  })
+    .then(() => {
+      res.status(200).redirect('/schedules/my');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.foo = (req, res, next) => {
+  console.log(78787878);
+  next();
+};
+
+exports.deleteSchedule = (req, res) => {
+  Schedule.destroy({ where: { id: req.body.id } })
+    .then(() => {
+      res.status(200).redirect('/schedules/my');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 exports.getForm = (req, res) => {
-  if (!req.session.isLoggedIn) {
-    res.status(403).redirect('/login');
-  }
   User.findAll()
     .then((users) => {
       res.status(200).render('new-schedule-form', {
