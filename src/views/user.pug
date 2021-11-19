@@ -1,10 +1,20 @@
 extend layouts/main-layout.pug
 
 block styles
-  link(rel="stylesheet", href="/css/users.css")
+  link(rel="stylesheet", href="/css/user.css")
 
 block content
   main.main
     section.section.main-section
-     img(src="/img/user-circle.png", alt="Profile image")
-     h3 #{user.firstname} #{user.lastname}
+      header.user__header
+        img.user__img(src="/img/user-circle.png", alt="Profile image")
+        h3.user__name #{user.firstname} #{user.lastname}
+        .user__email Email: 
+          a(href="mailto:"+user.email) #{user.email}
+        -function day(date) {
+          -var date = new Date(date);
+          -var day = date.toLocaleDateString('en-GB', { month: 'long', day: 'numeric' });
+          -return day;
+        -}
+        .user__join Joined: 
+          span.user__date #{day(user.createdAt)}

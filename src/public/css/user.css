@@ -1,0 +1,16 @@
+.user__name {
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.user__email,
+.user__join {
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+.user__email a,
+.user__date {
+  font-weight: 300;
+  color: #fff;
+}
