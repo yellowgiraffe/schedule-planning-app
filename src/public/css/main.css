@@ -186,6 +186,10 @@ body {
   background-color: #2ebca7;
 }
 
+.user__main-photo {
+  width: 180px
+}
+
 .main-title {
   padding: 20px 25px;
   border-top-left-radius: 6px;

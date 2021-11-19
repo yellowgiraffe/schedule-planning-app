@@ -1,3 +1,7 @@
+.user__img {
+  width: 180px;
+}
+
 .user__name {
   margin-bottom: 15px;
   text-transform: uppercase;
@@ -13,4 +17,19 @@
 .user__date {
   font-weight: 300;
   color: #fff;
+}
+
+.user__btn {
+  background-color: #51597b;
+  margin-right: 20px;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: .9rem;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.user__btn:hover {
+  background-color: #3468af;
 }

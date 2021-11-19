@@ -1,17 +1,24 @@
 extend layouts/main-layout.pug
 
 block styles
-  link(rel="stylesheet", href="/css/users.css")
+  link(rel="stylesheet", href="/css/schedules.css")
 
 block content
   main.main
     section.section.main-section
       if userSchedules.length > 0
         h2.section-title User schedule
-        each user in userSchedules
-          p #{user.startAt}
-          p #{user.endAt}
-          p ---------------
+        ul.schedules__list
+          each user in userSchedules
+            -function day(date) {
+              -var date = new Date(date);
+              -var day = date.toLocaleDateString('en-GB', { month: 'long', day: 'numeric' });
+              -return day;
+            -}
+            li.schedules__item
+              .schedules__day #{day(user.day)}
+              .schedules__start #{user.startAt}
+              .schedules__end #{user.endAt}
         p.results Results: #{userSchedules.length}
       else 
        h2.section-title No schedules for this user in database

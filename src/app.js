@@ -42,7 +42,6 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
   Promise.all([User.findAndCountAll(), Schedule.findAndCountAll()])
     .then((result) => {
-      console.log(result);
       res.status(200).render('home', {
         pageTitle: 'Schedules website',
         path: '/',

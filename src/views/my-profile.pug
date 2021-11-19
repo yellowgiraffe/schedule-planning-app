@@ -1,0 +1,31 @@
+extend layouts/main-layout.pug
+
+block styles
+  link(rel="stylesheet", href="/css/form.css")
+  link(rel="stylesheet", href="/css/modal.css")
+
+block content
+  main.main
+    section.section.main-section
+      header.user__header
+        img.user__main-photo(src="/img/user-circle.png", alt="Profile image")
+        form(action="/users/my/profile" method="POST")
+          input(type="hidden" name="_csrf" value=csrfToken)
+          label.label(for="firstname") First name
+          input.input#user-firstname(type="text" name="firstname" value=user.firstname required)
+          label.label(for="lastname") Last name
+          input.input#user-lastname(type="text" name="lastname" value=user.lastname required)
+          label.label(for="email") Email
+          input.input#user-email(type="email" name="email" value=user.email required)
+          input.input(type="submit" value="Save changes")
+        button.delete-profile-btn(type="button") Delete my account
+        .modal
+          .modal__container
+            h4.modal__title Are you sure you want to delete your account?
+            form(action="/users/my/profile/delete" method="POST")
+              input(type="hidden" name="_csrf" value=csrfToken)
+              input#id(type="hidden" name="id" value=user.id)
+              button#delete-schedule.modal__btn.delete(type="submit") Yes, I am sure
+              button#close-modal.modal__btn.cancel(type="button") Cancel
+block js
+  script(src="/modal.js")

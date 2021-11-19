@@ -25,7 +25,8 @@
 }
 
 .input,
-.select {
+.select,
+.delete-profile-btn {
   display: block;
   width: 50%;
   border-radius: 6px;
@@ -62,4 +63,16 @@
 
 .input[type='submit']:hover {
   background-color: #2ebca7;
+}
+
+.delete-profile-btn {
+  background-color: #ce5f4c;
+  color: #fff;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.delete-profile-btn:hover {
+  background-color: #f0725c;
 }

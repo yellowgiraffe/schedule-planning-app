@@ -78,16 +78,55 @@ exports.getUser = (req, res) => {
     });
 };
 
-exports.myProfile = (req, res) => {
-  // const { id } = req.params;
-  // User.findByPk(id)
-  //   .then((user) => {
-  //     res.status(200).render('user', {
-  //       user,
-  //     });
-  //   }).catch((err) => {
-  //     console.log(err);
-  //   });
+// exports.getMyProfile = (req, res) => {
+//   const { id } = req.session.user.id;
+//   User.findByPk(id)
+//     .then(() => {
+//       res.status(200).render('my-profile', {
+//         pageTitle: 'My Profile',
+//         path: '/users/my/profile',
+//       });
+//     }).catch((err) => {
+//       console.log(err);
+//     });
+// };
+
+exports.getMyProfile = (req, res) => {
+  res.status(200).render('my-profile', {
+    pageTitle: 'My Profile',
+    path: '/users/my/profile',
+  });
+};
+
+exports.updateMyProfile = (req, res) => {
+  User.update({
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    email: req.body.email,
+  }, {
+    where: {
+      id: req.session.user.id
+    }
+  })
+    .then(() => {
+      req.session.user.firstname = req.body.firstname;
+      req.session.user.lastname = req.body.lastname;
+      req.session.user.email = req.body.email;
+      res.status(200).redirect('/users/my/profile');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.deleteMyAccount = (req, res, next) => {
+  User.destroy({ where: { id: req.body.id } })
+    .then(() => {
+      next();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 exports.getScheduleByUser = (req, res) => {

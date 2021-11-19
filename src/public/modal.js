@@ -1,4 +1,6 @@
-const showModalBtns = document.querySelectorAll('button.schedules__btn');
+const scheduleDeleteBtns = document.querySelectorAll('button.schedules__btn');
+const userDeleteBtn = document.querySelectorAll('.delete-profile-btn');
+
 const deleteBtn = document.querySelector('#delete-schedule');
 const closeModalBtn = document.querySelector('#close-modal');
 const modal = document.querySelector('.modal');
@@ -13,6 +15,7 @@ function hideModal() {
   document.body.style.overflowY = 'auto';
 }
 
-showModalBtns.forEach((btn) => btn.addEventListener('click', showModal));
+scheduleDeleteBtns.forEach((btn) => btn.addEventListener('click', showModal));
+userDeleteBtn.forEach((btn) => btn.addEventListener('click', showModal));
 deleteBtn.addEventListener('click', showModal);
 closeModalBtn.addEventListener('click', hideModal);

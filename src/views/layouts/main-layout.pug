@@ -17,6 +17,8 @@ html(lang="en")
           ul.header__nav-list
             li.header__nav-item(class=(path === '/' ? 'active-nav' : ''))
               a.header__nav-link(href="/") Home
+            li.header__nav-item(class=(path === '/users/my/profile' ? 'active-nav' : ''))
+              a.header__nav-link(href="/users/my/profile") My profile
             li.header__nav-item(class=(path === '/schedules/my' ? 'active-nav' : ''))
               a.header__nav-link(href="/schedules/my") My schedules
             li.header__nav-item(class=(path === '/schedules/new' ? 'active-nav ' : ''))

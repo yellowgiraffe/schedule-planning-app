@@ -83,11 +83,6 @@ exports.updateSchedule = (req, res) => {
     });
 };
 
-exports.foo = (req, res, next) => {
-  console.log(78787878);
-  next();
-};
-
 exports.deleteSchedule = (req, res) => {
   Schedule.destroy({ where: { id: req.body.id } })
     .then(() => {

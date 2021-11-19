@@ -11,13 +11,6 @@ block content
         form.schedules-form(action="/schedules" method="POST")
           -var csrfToken = csrfToken
           input(type="hidden" name="_csrf" value=csrfToken)
-          //- label.label(for="userID") Selec user
-          //- select.select#userID(name="userID") 
-          //-   if allUsers.length > 0
-          //-     each user in allUsers
-          //-       option(value=user.id) #{user.firstname} #{user.lastname}
-          //-   else
-          //-     option(value=index) No users in database
           label.label(for="day") Select starting date and time
           input.input#day(type="date" name="day")
           label.label(for="startAt") Select starting date and time
