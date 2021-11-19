@@ -10,9 +10,8 @@ const sequelize = require('./utils/database');
 const usersRouter = require('./routes/usersRouter');
 const schedulesRouter = require('./routes/schedulesRouter');
 const authRouter = require('./routes/authRouter');
-const { users } = require('./data');
-const { schedules } = require('./data');
-// const User = require('./models/User');
+const User = require('./models/User');
+const Schedule = require('./models/Schedule');
 
 const protectionToken = csrf();
 const app = express();
@@ -32,17 +31,6 @@ app.use(session({
 
 app.use(protectionToken);
 
-// app.use((req, res, next) => {
-//   User.findByPk(1)
-//     .then((user) => {
-//       req.user = user;
-//       next();
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// });
-
 app.use((req, res, next) => {
   res.locals.isLoggedIn = req.session.isLoggedIn;
   res.locals.csrfToken = req.csrfToken();
@@ -52,12 +40,19 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  res.status(200).render('home', {
-    pageTitle: 'Schedules website',
-    path: '/',
-    allUsers: users,
-    allSchedules: schedules,
-  });
+  Promise.all([User.findAndCountAll(), Schedule.findAndCountAll()])
+    .then((result) => {
+      console.log(result);
+      res.status(200).render('home', {
+        pageTitle: 'Schedules website',
+        path: '/',
+        allUsers: result[0].count,
+        allSchedules: result[1].count,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 app.use('/users', usersRouter);
