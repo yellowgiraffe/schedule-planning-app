@@ -1,14 +1,47 @@
 const Schedule = require('../models/Schedule');
 const User = require('../models/User');
 
-exports.checkConflicts = (req, res, next) => {
-  // Schedule.findOne({ where: day = req.body.day })
-  //   .then()
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
+exports.checkSchedule = (req, res, next) => {
+  const errors = [];
 
-  next();
+  if (req.body.startAt > req.body.endAt) {
+    errors.push({ message: 'Start time can not be later then end time' });
+  }
+
+  Schedule.findAll({ where: { day: req.body.day } })
+    .then((days) => {
+      if (days) {
+        days.forEach((day) => {
+          if (day.startAt <= req.body.endAt && day.endAt >= req.body.startAt) {
+            errors.push({
+              message: `New time range is overlapping existing schedule ${day.startAt} - ${day.endAt}.`
+            });
+          }
+        });
+      }
+      if (errors.length > 0) {
+        if (req.body.id) {
+          return res.status(422).render('edit-schedule', {
+            pageTitle: 'Edit Schedule',
+            errors,
+            schedule: {
+              id: req.body.id,
+              day: req.body.day,
+              startAt: req.body.startAt,
+              endAt: req.body.endAt
+            },
+          });
+        }
+        return res.status(422).render('new-schedule-form', {
+          pageTitle: 'Add New Schedule',
+          errors,
+        });
+      }
+      next();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 exports.getAllSchedules = (req, res) => {
@@ -46,6 +79,7 @@ exports.createSchedule = (req, res) => {
     endAt: req.body.endAt,
     userId: req.session.user.id
   }).then(() => {
+    req.session.successMsg = 'New schedule has been created';
     res.status(201).redirect('schedules');
   }).catch((err) => {
     console.log(err);

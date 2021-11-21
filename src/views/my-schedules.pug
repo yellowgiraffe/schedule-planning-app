@@ -33,8 +33,8 @@ block content
                   -return day;
                 -}
                 .schedules__day #{day(schedule.day)}
-                .schedules__start #{schedule.startAt}
-                .schedules__end #{schedule.endAt}
+                .schedules__start #{schedule.startAt.slice(0,5)}
+                .schedules__end #{schedule.endAt.slice(0,5)}
               .schedules__control-btns
                 a.schedules__btn(href="/schedules/my/"+schedule.id) Edit
                 button.schedules__btn(type="button") Delete                

@@ -13,7 +13,7 @@ block content
           a(href="mailto:"+user.email) #{user.email}
         -function day(date) {
           -var date = new Date(date);
-          -var day = date.toLocaleDateString('en-GB', { month: 'long', day: 'numeric' });
+          -var day = date.toLocaleDateString('en-GB', { month: 'long', day: 'numeric', year: 'numeric' });
           -return day;
         -}
         .user__join Joined: 

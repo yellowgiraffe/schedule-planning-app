@@ -8,14 +8,18 @@ block content
     section.section.main-section
       if isLoggedIn
         h2.section-title Add schedule
+        if typeof errors !== "undefined"
+          ul.errors
+            each error in errors
+              li.error-msg #{error.message}
         form.schedules-form(action="/schedules" method="POST")
           -var csrfToken = csrfToken
           input(type="hidden" name="_csrf" value=csrfToken)
-          label.label(for="day") Select starting date and time
+          label.label(for="day") Select date
           input.input#day(type="date" name="day")
-          label.label(for="startAt") Select starting date and time
+          label.label(for="startAt") Select starting time
           input.input#startAt(type="time" name="startAt")
-          label.label(for="endAt") Select ending date and time
+          label.label(for="endAt") Select ending time
           input.input#endAt(type="time" name="endAt")
           input.input(type="submit" value="Submit")
       else

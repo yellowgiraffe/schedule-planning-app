@@ -8,6 +8,10 @@ block content
     section.section.main-section
       if isLoggedIn
         h2.section-title Edit your schedule details
+        if typeof errors !== "undefined"
+          ul.errors
+            each error in errors
+              li.error-msg #{error.message}
         form.schedules-form(action="/schedules/my/"+schedule.id method="POST")
           -var csrfToken = csrfToken
           input(type="hidden" name="_csrf" value=csrfToken)
@@ -18,6 +22,6 @@ block content
           input.input#startAt(type="time" name="startAt" value=schedule.startAt)
           label.label(for="endAt") Select new ending time
           input.input#endAt(type="time" name="endAt" value=schedule.endAt)
-          input.input(type="submit" value="Submit")
+          input.input(type="submit" value="Save")
       else
         h2.section-title Please login to edit schedules

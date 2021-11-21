@@ -1,4 +1,5 @@
 const express = require('express');
+// const { check, body } = require('express-validator');
 const schedulesController = require('../controllers/schedulesController');
 const checkAuth = require('../middleware/checkAuth');
 
@@ -7,7 +8,7 @@ const router = express.Router();
 router
   .route('/')
   .get(schedulesController.getAllSchedules)
-  .post(schedulesController.checkConflicts, schedulesController.createSchedule);
+  .post(schedulesController.checkSchedule, schedulesController.createSchedule);
 
 router.route('/new').get(checkAuth, schedulesController.getForm);
 
@@ -19,6 +20,6 @@ router
 router
   .route('/my/:id')
   .get(checkAuth, schedulesController.editForm)
-  .post(schedulesController.updateSchedule);
+  .post(schedulesController.checkSchedule, schedulesController.updateSchedule);
 
 module.exports = router;

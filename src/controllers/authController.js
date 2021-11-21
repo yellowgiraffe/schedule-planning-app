@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const transport = require('nodemailer-sendgrid-transport');
-
+const { validationResult } = require('express-validator');
 const User = require('../models/User');
 
 const transporter = nodemailer.createTransport(transport({
@@ -25,6 +25,10 @@ exports.validateNewUser = (req, res, next) => {
     errors.push({ message: 'Please fill up all fields' });
   }
 
+  if (firstname.match(/\d/) || lastname.match(/\d/)) {
+    errors.push({ message: 'Your firstname and lastname may contain only letters' });
+  }
+
   if (password.length < 8) {
     errors.push({ message: 'Your password should contain at least 8 characters' });
   }
@@ -33,20 +37,22 @@ exports.validateNewUser = (req, res, next) => {
     errors.push({ message: 'Passwords should be the same. Please try again' });
   }
 
-  User.findOne({ where: { email: req.body.email } })
+  User.findOne({ where: { email: req.body.email.trim() } })
     .then((user) => {
       if (user) {
         errors.push({ message: 'User with this email already exists' });
       }
 
       if (errors.length > 0) {
-        res.render('new-user-form', { errors });
+        res.render('auth/signup', { errors });
+        return;
       }
     })
     .catch((err) => {
       console.log(err);
     });
 
+  console.log(errors);
   next();
 };
 
@@ -101,7 +107,7 @@ exports.createUser = (req, res) => {
     .then((hashedPassword) => User.create({
       firstname: req.body.firstname.trim(),
       lastname: req.body.lastname.trim(),
-      email: req.body.email,
+      email: req.body.email.trim(),
       password: hashedPassword
     }))
     .then((user) => {

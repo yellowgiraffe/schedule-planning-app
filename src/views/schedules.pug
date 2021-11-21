@@ -7,6 +7,12 @@ block content
   main.main
     section.section.main-section
       h2.section-title Schedules list
+      if typeof errors !== "undefined"
+          ul.errors
+            each error in errors
+              li.error-msg #{error.message}
+      if successMsg
+        p.success-msg #{successMsg}
       if allSchedules.length > 0
         ul.schedules__list
           li.schedules__title-row
@@ -23,8 +29,8 @@ block content
               -}
               h3.schedules__user-name #{schedule.user.firstname} #{schedule.user.lastname}
               .schedules__day #{day(schedule.day)}
-              .schedules__start #{schedule.startAt}
-              .schedules__end #{schedule.endAt}
+              .schedules__start #{schedule.startAt.slice(0,5)}
+              .schedules__end #{schedule.endAt.slice(0,5)}
         p.results Results: #{allSchedules.length}
       else
         h2.section-title No schedules

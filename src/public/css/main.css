@@ -66,6 +66,45 @@ h6 {
   font-weight: 400;
 }
 
+.errors {
+  margin-bottom: 20px;
+}
+
+.error-msg,
+.success-msg {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 5px;
+}
+
+.error-msg {
+  color: #FFBC67;
+}
+
+.success-msg {
+  color: #24C490;
+  margin-bottom: 20px;
+}
+
+.error-msg::before,
+.success-msg::before {
+  content: "";
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  left: 0;
+  background-size: 1rem 1rem;
+}
+
+.error-msg::before {
+  background: url('../img/exclamation-mark.svg') center no-repeat;
+}
+
+.success-msg::before {
+  background: url('../img/checkmark.svg') center no-repeat;
+  border-radius: 50%;
+}
+
 body {
   background-color: #1e253d;
   color: #fff;
