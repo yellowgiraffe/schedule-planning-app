@@ -8,6 +8,8 @@ block content
   main.main
     section.section.main-section
       header.user__header
+        if successMsg.length > 0
+          p.success-msg #{successMsg}
         img.user__main-photo(src="/img/user-circle.png", alt="Profile image")
         form(action="/users/my/profile" method="POST")
           input(type="hidden" name="_csrf" value=csrfToken)

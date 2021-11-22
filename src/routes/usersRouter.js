@@ -5,8 +5,6 @@ const authController = require('../controllers/authController');
 
 const router = express.Router();
 
-router.param('id', usersController.checkID);
-
 router
   .route('/')
   .get(usersController.getAllUsers);

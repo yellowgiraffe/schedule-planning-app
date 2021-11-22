@@ -12,10 +12,12 @@ exports.checkSchedule = (req, res, next) => {
     .then((days) => {
       if (days) {
         days.forEach((day) => {
-          if (day.startAt <= req.body.endAt && day.endAt >= req.body.startAt) {
-            errors.push({
-              message: `New time range is overlapping existing schedule ${day.startAt} - ${day.endAt}.`
-            });
+          if (day.id !== +req.body.id) {
+            if (day.startAt <= req.body.endAt && day.endAt >= req.body.startAt) {
+              errors.push({
+                message: `New time range is overlapping existing schedule ${day.startAt} - ${day.endAt}.`
+              });
+            }
           }
         });
       }
@@ -51,7 +53,7 @@ exports.getAllSchedules = (req, res) => {
         pageTitle: 'Schedules',
         path: '/schedules',
         allSchedules: schedules,
-        successMsg: req.flash('scheduleCreated')
+        successMsg: req.flash('success')
       });
     })
     .catch((err) => {
@@ -66,7 +68,21 @@ exports.getMySchedules = (req, res) => {
         pageTitle: 'My schedules',
         path: '/schedules/my',
         allSchedules: schedules,
-        successMsg: req.flash('scheduleUpdated', 'scheduleDeleted'),
+        successMsg: req.flash('success')
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.getForm = (req, res) => {
+  User.findAll()
+    .then((users) => {
+      res.status(200).render('new-schedule-form', {
+        pageTitle: 'Add New Schedule',
+        allUsers: users,
+        path: '/schedules/new',
       });
     })
     .catch((err) => {
@@ -81,7 +97,7 @@ exports.createSchedule = (req, res) => {
     endAt: req.body.endAt,
     userId: req.session.user.id
   }).then((schedule) => {
-    req.flash('scheduleCreated', `New schedule for ${new Date(schedule.day).toLocaleDateString('en-GB', { month: 'numeric', day: 'numeric' })} has been created`);
+    req.flash('success', `New schedule for ${new Date(schedule.day).toLocaleDateString('en-GB', { month: 'long', day: 'numeric' })} has been created`);
     res.status(201).redirect('schedules');
   }).catch((err) => {
     console.log(err);
@@ -111,8 +127,8 @@ exports.updateSchedule = (req, res) => {
       id: req.body.id
     }
   })
-    .then((schedule) => {
-      req.flash('scheduleUpdated', `Your schedule for ${new Date(schedule.day).toLocaleDateString('en-GB', { month: 'numeric', day: 'numeric' })} has been updated!`);
+    .then(() => {
+      req.flash('scheduleUpdated', 'Your schedule has been updated!');
       res.status(200).redirect('/schedules/my');
     })
     .catch((err) => {
@@ -122,23 +138,9 @@ exports.updateSchedule = (req, res) => {
 
 exports.deleteSchedule = (req, res) => {
   Schedule.destroy({ where: { id: req.body.id } })
-    .then((schedule) => {
-      req.flash('scheduleDeleted', `Schedule for ${new Date(schedule.day).toLocaleDateString('en-GB', { month: 'numeric', day: 'numeric' })} was deleted successfully!`);
+    .then(() => {
+      req.flash('success', 'Schedule was deleted successfully!');
       res.status(200).redirect('/schedules/my');
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-exports.getForm = (req, res) => {
-  User.findAll()
-    .then((users) => {
-      res.status(200).render('new-schedule-form', {
-        pageTitle: 'Add New Schedule',
-        allUsers: users,
-        path: '/schedules/new',
-      });
     })
     .catch((err) => {
       console.log(err);
