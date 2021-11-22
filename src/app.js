@@ -11,6 +11,7 @@ const sequelize = require('./utils/database');
 const usersRouter = require('./routes/usersRouter');
 const schedulesRouter = require('./routes/schedulesRouter');
 const authRouter = require('./routes/authRouter');
+
 const User = require('./models/User');
 const Schedule = require('./models/Schedule');
 

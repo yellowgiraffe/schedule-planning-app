@@ -45,13 +45,12 @@ exports.validateNewUser = (req, res, next) => {
       if (errors.length > 0) {
         return res.render('auth/signup', { errors });
       }
+
+      next();
     })
     .catch((err) => {
       console.log(err);
     });
-
-  console.log(errors);
-  next();
 };
 
 exports.getLoginPage = (req, res) => {

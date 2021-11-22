@@ -1,5 +1,4 @@
 const express = require('express');
-// const { check, body } = require('express-validator');
 const schedulesController = require('../controllers/schedulesController');
 const checkAuth = require('../middleware/checkAuth');
 
