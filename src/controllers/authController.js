@@ -89,7 +89,7 @@ exports.login = (req, res) => {
 exports.logout = (req, res) => {
   req.session.destroy((err) => {
     console.log(err);
-    res.status(200).redirect('/');
+    res.status(200).redirect('/login');
   });
 };
 
