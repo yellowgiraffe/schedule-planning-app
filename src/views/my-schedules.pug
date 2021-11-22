@@ -8,13 +8,10 @@ block content
   main.main
     section.section.main-section
       h2.section-title My schedules
+      if successMsg.length > 0
+          p.success-msg #{successMsg}
       if allSchedules.length > 0
         ul.schedules__list
-          //- li.schedules__title-row
-          //-   .schedules__info 
-          //-     h3.schedules__day Day
-          //-     h3.schedules__start Start time
-          //-     h3.schedules__end End time
           each schedule in allSchedules
             li.schedules__item
               .modal
@@ -39,14 +36,6 @@ block content
                 a.schedules__btn(href="/schedules/my/"+schedule.id) Edit
                 button.schedules__btn(type="button") Delete                
         p.results Results: #{allSchedules.length}
-        //- .modal
-        //-   .modal__container
-        //-     h4.modal__title
-        //-     p.modal__desc
-        //-     form(action="/schedules/my" method="POST")
-        //-       input(type="hidden" name="_csrf" value=csrfToken)
-        //-       input#id(type="hidden" name="id" value=schedule.id)
-        //-       input#delete-schedule.schedules__btn(type="submit" value="Delete")
       else
         h2.section-title No schedules
 block js

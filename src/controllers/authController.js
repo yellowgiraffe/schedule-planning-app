@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const transport = require('nodemailer-sendgrid-transport');
-const { validationResult } = require('express-validator');
 const User = require('../models/User');
 
 const transporter = nodemailer.createTransport(transport({
@@ -44,8 +43,7 @@ exports.validateNewUser = (req, res, next) => {
       }
 
       if (errors.length > 0) {
-        res.render('auth/signup', { errors });
-        return;
+        return res.render('auth/signup', { errors });
       }
     })
     .catch((err) => {
@@ -59,7 +57,8 @@ exports.validateNewUser = (req, res, next) => {
 exports.getLoginPage = (req, res) => {
   res.status(200).render('auth/login', {
     pageTitle: 'Log In',
-    path: '/login'
+    path: '/login',
+    successMsg: req.flash('registrationComplited'),
   });
 };
 
@@ -120,6 +119,7 @@ exports.createUser = (req, res) => {
           html: '<h1>The registration is completed. You can login using your email and password'
         });
       }
+      req.flash('registrationComplited', 'Registration is complited. You can login now');
       res.status(201).redirect('/login');
     })
     .catch((err) => {

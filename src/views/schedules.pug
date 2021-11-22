@@ -11,7 +11,7 @@ block content
           ul.errors
             each error in errors
               li.error-msg #{error.message}
-      if successMsg
+      if successMsg.length > 0
         p.success-msg #{successMsg}
       if allSchedules.length > 0
         ul.schedules__list

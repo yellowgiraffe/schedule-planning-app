@@ -2,6 +2,7 @@ const path = require('path');
 const csrf = require('csurf');
 const express = require('express');
 const session = require('express-session');
+const flash = require('connect-flash');
 const SequalizeStore = require('connect-session-sequelize')(session.Store);
 
 const rootDir = require('./utils/path');
@@ -29,14 +30,14 @@ app.use(session({
   store: new SequalizeStore({ db: sequelize }),
 }));
 
+app.use(flash({ sessionKeyName: 'flashMessage', useCookieSession: true }));
+
 app.use(protectionToken);
 
 app.use((req, res, next) => {
   res.locals.isLoggedIn = req.session.isLoggedIn;
   res.locals.csrfToken = req.csrfToken();
   res.locals.user = req.session.user;
-  res.locals.successMsg = req.session.successMsg;
-
   next();
 });
 

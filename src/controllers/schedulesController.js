@@ -51,6 +51,7 @@ exports.getAllSchedules = (req, res) => {
         pageTitle: 'Schedules',
         path: '/schedules',
         allSchedules: schedules,
+        successMsg: req.flash('scheduleCreated')
       });
     })
     .catch((err) => {
@@ -65,6 +66,7 @@ exports.getMySchedules = (req, res) => {
         pageTitle: 'My schedules',
         path: '/schedules/my',
         allSchedules: schedules,
+        successMsg: req.flash('scheduleUpdated', 'scheduleDeleted'),
       });
     })
     .catch((err) => {
@@ -78,8 +80,8 @@ exports.createSchedule = (req, res) => {
     startAt: req.body.startAt,
     endAt: req.body.endAt,
     userId: req.session.user.id
-  }).then(() => {
-    req.session.successMsg = 'New schedule has been created';
+  }).then((schedule) => {
+    req.flash('scheduleCreated', `New schedule for ${new Date(schedule.day).toLocaleDateString('en-GB', { month: 'numeric', day: 'numeric' })} has been created`);
     res.status(201).redirect('schedules');
   }).catch((err) => {
     console.log(err);
@@ -109,7 +111,8 @@ exports.updateSchedule = (req, res) => {
       id: req.body.id
     }
   })
-    .then(() => {
+    .then((schedule) => {
+      req.flash('scheduleUpdated', `Your schedule for ${new Date(schedule.day).toLocaleDateString('en-GB', { month: 'numeric', day: 'numeric' })} has been updated!`);
       res.status(200).redirect('/schedules/my');
     })
     .catch((err) => {
@@ -119,7 +122,8 @@ exports.updateSchedule = (req, res) => {
 
 exports.deleteSchedule = (req, res) => {
   Schedule.destroy({ where: { id: req.body.id } })
-    .then(() => {
+    .then((schedule) => {
+      req.flash('scheduleDeleted', `Schedule for ${new Date(schedule.day).toLocaleDateString('en-GB', { month: 'numeric', day: 'numeric' })} was deleted successfully!`);
       res.status(200).redirect('/schedules/my');
     })
     .catch((err) => {

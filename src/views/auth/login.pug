@@ -11,7 +11,9 @@ block content
           ul.errors
             each error in errors
               li.error-msg #{error.message}
-      form.login.form(action="/login" method="POST" novalidate)
+      if successMsg.length > 0
+        p.success-msg #{successMsg}
+      form.login.form(action="/login" method="POST")
         -var csrfToken = csrfToken
         input(type="hidden" name="_csrf" value=csrfToken)
         label.label(for="email") Enter your email address 
