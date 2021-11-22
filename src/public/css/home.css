@@ -2,6 +2,7 @@
 .schedules-stats__num {
   display: block;
   position: relative;
+  padding-left: 82px;
   font-size: 5rem;
   font-weight: 400;
 }
@@ -17,7 +18,7 @@
   position: absolute;
   width: 62px;
   height: 62px;
-  left: 4rem;
+  left: 0;
 }
 
 .user-stats__num::before {

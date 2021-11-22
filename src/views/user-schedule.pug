@@ -17,8 +17,8 @@ block content
             -}
             li.schedules__item
               .schedules__day #{day(user.day)}
-              .schedules__start #{user.startAt}
-              .schedules__end #{user.endAt}
+              .schedules__start #{user.startAt.slice(0,5)}
+              .schedules__end #{user.endAt.slice(0,5)}
         p.results Results: #{userSchedules.length}
       else 
        h2.section-title No schedules for this user in database
