@@ -140,7 +140,7 @@ exports.updateSchedule = (req, res, next) => {
     }
   })
     .then(() => {
-      req.flash('scheduleUpdated', 'Your schedule has been updated!');
+      req.flash('success', 'Your schedule has been updated!');
       res.status(200).redirect('/schedules/my');
     })
     .catch((err) => {
