@@ -7,7 +7,7 @@
 This aplication menages your team's schedules. Every team member can create, edit or delete their time slot and check planned schedules of coworkers.
 ## How to start
 ```
-npm init
+npm install
 npm run start
 ```
 ## Functionality of application
