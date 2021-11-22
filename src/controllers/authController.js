@@ -24,12 +24,16 @@ exports.validateNewUser = (req, res, next) => {
     errors.push({ message: 'Please fill up all fields' });
   }
 
-  if (firstname.match(/\d/) || lastname.match(/\d/)) {
+  if (firstname.match(/\d|\s/) || lastname.match(/\d|\s/)) {
     errors.push({ message: 'Your firstname and lastname may contain only letters' });
   }
 
   if (password.length < 8) {
     errors.push({ message: 'Your password should contain at least 8 characters' });
+  }
+
+  if (!password.match(/[A-Z]/)) {
+    errors.push({ message: 'Your password should contain at least one capital letter' });
   }
 
   if (password !== passwordRepeat) {
@@ -43,7 +47,12 @@ exports.validateNewUser = (req, res, next) => {
       }
 
       if (errors.length > 0) {
-        return res.render('auth/signup', { errors });
+        return res.render('auth/signup', {
+          user: {
+            firstname: req.body.firstname
+          },
+          errors
+        });
       }
 
       next();
@@ -57,7 +66,8 @@ exports.getLoginPage = (req, res) => {
   res.status(200).render('auth/login', {
     pageTitle: 'Log In',
     path: '/login',
-    successMsg: req.flash('registrationComplited'),
+    successMsg: req.flash('success'),
+    errors: req.flash('error')
   });
 };
 
@@ -74,12 +84,10 @@ exports.login = (req, res) => {
     .then((isEqual) => {
       if (isEqual) {
         req.session.isLoggedIn = true;
-        res.status(200).redirect('/');
-      } else {
-        res.status(401).render('auth/login', {
-          errors: [{ message: 'Email not found or password incorrect.' }],
-        });
+        return res.status(200).redirect('/');
       }
+      req.flash('error', 'Email not found or password incorrect.');
+      res.status(401).redirect('login');
     })
     .catch((err) => {
       console.log(err);
@@ -118,7 +126,7 @@ exports.createUser = (req, res) => {
           html: '<h1>The registration is completed. You can login using your email and password'
         });
       }
-      req.flash('registrationComplited', 'Registration is complited. You can login now');
+      req.flash('success', 'Registration is complited. You can login now');
       res.status(201).redirect('/login');
     })
     .catch((err) => {

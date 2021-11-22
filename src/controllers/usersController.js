@@ -59,6 +59,7 @@ exports.updateMyProfile = (req, res) => {
 exports.deleteMyAccount = (req, res, next) => {
   User.destroy({ where: { id: req.body.id } })
     .then(() => {
+      req.flash('success', 'Your account and all your schedules have been deleted permanently');
       next();
     })
     .catch((err) => {

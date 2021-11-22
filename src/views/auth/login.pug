@@ -7,10 +7,10 @@ block content
   main.main
     section.section.main-section
       h2.section-title Log in
-      if typeof errors !== "undefined"
-          ul.errors
-            each error in errors
-              li.error-msg #{error.message}
+      if errors.length > 0
+        ul.errors
+          each error in errors
+            li.error-msg #{error}
       if successMsg.length > 0
         p.success-msg #{successMsg}
       form.login.form(action="/login" method="POST")
