@@ -14,7 +14,6 @@ User.hasMany(Schedule);
 const PORT = 5000;
 
 sequelize
-  // .sync({ force: true })
   .sync()
   .then(() => {
     app.listen(PORT, () => {

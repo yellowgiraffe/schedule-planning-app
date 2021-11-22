@@ -42,11 +42,13 @@ exports.checkSchedule = (req, res, next) => {
       next();
     })
     .catch((err) => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
-exports.getAllSchedules = (req, res) => {
+exports.getAllSchedules = (req, res, next) => {
   Schedule.findAll({ include: [{ model: User }] })
     .then((schedules) => {
       res.status(200).render('schedules', {
@@ -57,11 +59,13 @@ exports.getAllSchedules = (req, res) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
-exports.getMySchedules = (req, res) => {
+exports.getMySchedules = (req, res, next) => {
   Schedule.findAll({ where: { userId: req.session.user.id } })
     .then((schedules) => {
       res.status(200).render('my-schedules', {
@@ -72,11 +76,13 @@ exports.getMySchedules = (req, res) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
-exports.getForm = (req, res) => {
+exports.getForm = (req, res, next) => {
   User.findAll()
     .then((users) => {
       res.status(200).render('new-schedule-form', {
@@ -86,11 +92,13 @@ exports.getForm = (req, res) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
-exports.createSchedule = (req, res) => {
+exports.createSchedule = (req, res, next) => {
   Schedule.create({
     day: req.body.day,
     startAt: req.body.startAt,
@@ -100,11 +108,13 @@ exports.createSchedule = (req, res) => {
     req.flash('success', `New schedule for ${new Date(schedule.day).toLocaleDateString('en-GB', { month: 'long', day: 'numeric' })} has been created`);
     res.status(201).redirect('schedules');
   }).catch((err) => {
-    console.log(err);
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
   });
 };
 
-exports.editForm = (req, res) => {
+exports.editForm = (req, res, next) => {
   Schedule.findByPk(req.params.id)
     .then((schedule) => {
       res.status(200).render('edit-schedule', {
@@ -113,11 +123,13 @@ exports.editForm = (req, res) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
-exports.updateSchedule = (req, res) => {
+exports.updateSchedule = (req, res, next) => {
   Schedule.update({
     day: req.body.day,
     startAt: req.body.startAt,
@@ -132,17 +144,21 @@ exports.updateSchedule = (req, res) => {
       res.status(200).redirect('/schedules/my');
     })
     .catch((err) => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
-exports.deleteSchedule = (req, res) => {
+exports.deleteSchedule = (req, res, next) => {
   Schedule.destroy({ where: { id: req.body.id } })
     .then(() => {
       req.flash('success', 'Schedule was deleted successfully!');
       res.status(200).redirect('/schedules/my');
     })
     .catch((err) => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };

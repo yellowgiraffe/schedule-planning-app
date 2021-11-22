@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const Schedule = require('../models/Schedule');
 
-exports.getAllUsers = (req, res) => {
+exports.getAllUsers = (req, res, next) => {
   User.findAll()
     .then((users) => {
       res.status(200).render('users', {
@@ -10,11 +10,13 @@ exports.getAllUsers = (req, res) => {
         allUsers: users,
       });
     }).catch((err) => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
-exports.getUser = (req, res) => {
+exports.getUser = (req, res, next) => {
   const { id } = req.params;
   User.findByPk(id)
     .then((user) => {
@@ -22,7 +24,9 @@ exports.getUser = (req, res) => {
         user,
       });
     }).catch((err) => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
@@ -34,7 +38,7 @@ exports.getMyProfile = (req, res) => {
   });
 };
 
-exports.updateMyProfile = (req, res) => {
+exports.updateMyProfile = (req, res, next) => {
   User.update({
     firstname: req.body.firstname,
     lastname: req.body.lastname,
@@ -52,7 +56,9 @@ exports.updateMyProfile = (req, res) => {
       res.status(200).redirect('/users/my/profile');
     })
     .catch((err) => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
@@ -63,11 +69,13 @@ exports.deleteMyAccount = (req, res, next) => {
       next();
     })
     .catch((err) => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
-exports.getScheduleByUser = (req, res) => {
+exports.getScheduleByUser = (req, res, next) => {
   const { id } = req.params;
   Schedule.findAll({ where: { userId: id } })
     .then((schedules) => {
@@ -75,6 +83,11 @@ exports.getScheduleByUser = (req, res) => {
         userSchedules: schedules,
         pageTitle: 'User schedule',
       });
+    })
+    .catch((err) => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 

@@ -58,7 +58,9 @@ exports.validateNewUser = (req, res, next) => {
       next();
     })
     .catch((err) => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
@@ -71,7 +73,7 @@ exports.getLoginPage = (req, res) => {
   });
 };
 
-exports.login = (req, res) => {
+exports.login = (req, res, next) => {
   User.findOne({ where: { email: req.body.email } })
     .then((user) => {
       if (user) {
@@ -90,14 +92,16 @@ exports.login = (req, res) => {
       res.status(401).redirect('login');
     })
     .catch((err) => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
 exports.logout = (req, res) => {
   req.session.destroy((err) => {
     console.log(err);
-    res.status(200).redirect('/login');
+    res.redirect('/login');
   });
 };
 
@@ -108,7 +112,7 @@ exports.getSignupPage = (req, res) => {
   });
 };
 
-exports.createUser = (req, res) => {
+exports.createUser = (req, res, next) => {
   bcrypt.hash(req.body.password, 10)
     .then((hashedPassword) => User.create({
       firstname: req.body.firstname.trim(),
@@ -130,6 +134,8 @@ exports.createUser = (req, res) => {
       res.status(201).redirect('/login');
     })
     .catch((err) => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };

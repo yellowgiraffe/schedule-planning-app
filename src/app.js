@@ -32,7 +32,6 @@ app.use(session({
 }));
 
 app.use(flash({ sessionKeyName: 'flashMessage', useCookieSession: true }));
-
 app.use(protectionToken);
 
 app.use((req, res, next) => {
@@ -42,7 +41,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/', (req, res) => {
+app.get('/', (req, res, next) => {
   Promise.all([User.findAndCountAll(), Schedule.findAndCountAll()])
     .then((result) => {
       res.status(200).render('home', {
@@ -53,7 +52,7 @@ app.get('/', (req, res) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      next(new Error(err));
     });
 });
 
@@ -61,8 +60,16 @@ app.use('/users', usersRouter);
 app.use('/schedules', schedulesRouter);
 app.use(authRouter);
 
+app.get('/500', (req, res) => {
+  res.status(500).render('500', { pageTitle: 'Server error' });
+});
+
 app.use((req, res) => {
   res.status(404).render('404', { pageTitle: 'Page not found' });
+});
+
+app.use((error, req, res) => {
+  res.status(500).redirect('500');
 });
 
 module.exports = app;
