@@ -3,6 +3,8 @@
 - PostgreSQL
 - Sequelize
 - PUG
+
+https://user-images.githubusercontent.com/59971064/148086926-521cb93a-1d5f-4b5b-83aa-303294fb1db6.MP4
 ## Description
 This aplication menages your team's schedules. Every team member can create, edit or delete their time slot and check planned schedules of coworkers.
 ## How to start
